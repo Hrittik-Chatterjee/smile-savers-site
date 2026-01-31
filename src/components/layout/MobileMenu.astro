@@ -443,31 +443,36 @@ const currentPath = Astro.url.pathname;
 
     if (!trigger || !container || !closeBtn || !backdrop || !panel) return;
 
+    // Store non-null references for use in closures
+    const menuTrigger = trigger;
+    const menuContainer = container;
+    const menuCloseBtn = closeBtn as HTMLElement;
+
     let isOpen = false;
 
     function openMenu() {
       isOpen = true;
-      container.setAttribute('data-state', 'open');
-      trigger.setAttribute('aria-expanded', 'true');
+      menuContainer.setAttribute('data-state', 'open');
+      menuTrigger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
       // Focus the close button for accessibility
-      (closeBtn as HTMLElement).focus();
+      menuCloseBtn.focus();
     }
 
     function closeMenu() {
       isOpen = false;
-      container.setAttribute('data-state', 'closed');
-      trigger.setAttribute('aria-expanded', 'false');
+      menuContainer.setAttribute('data-state', 'closed');
+      menuTrigger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
       // Return focus to trigger
-      trigger.focus();
+      menuTrigger.focus();
     }
 
     // Open menu
-    trigger.addEventListener('click', openMenu);
+    menuTrigger.addEventListener('click', openMenu);
 
     // Close menu - close button
-    closeBtn.addEventListener('click', closeMenu);
+    menuCloseBtn.addEventListener('click', closeMenu);
 
     // Close menu - backdrop click
     backdrop.addEventListener('click', closeMenu);
