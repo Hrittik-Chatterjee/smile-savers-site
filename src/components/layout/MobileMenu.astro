@@ -1,7 +1,8 @@
 ---
 /**
- * MobileMenu - Professional mobile navigation using DaisyUI Drawer
- * Uses DaisyUI's built-in drawer component for proper sidebar handling
+ * MobileMenu - Professional mobile navigation
+ * Uses JavaScript for proper state management with accessibility support
+ * Features: scroll lock, escape key close, proper focus management
  */
 
 import { mainNavigation } from '@/config/navigation';
@@ -11,303 +12,489 @@ import { formatPhone, formatPhoneLink } from '@/lib/utils';
 const currentPath = Astro.url.pathname;
 ---
 
-<!-- Hamburger trigger button (outside drawer for proper alignment) -->
-<label for="mobile-drawer" class="mobile-menu-btn" aria-label="Open menu">
+<!-- Hamburger trigger button -->
+<button
+  type="button"
+  id="mobile-menu-trigger"
+  class="mobile-menu-btn"
+  aria-label="Open menu"
+  aria-expanded="false"
+  aria-controls="mobile-menu-panel"
+>
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <line x1="3" y1="6" x2="21" y2="6"></line>
     <line x1="3" y1="12" x2="21" y2="12"></line>
     <line x1="3" y1="18" x2="21" y2="18"></line>
   </svg>
-</label>
+</button>
 
-<!-- DaisyUI Drawer (separate from trigger) -->
-<div class="drawer drawer-end">
-  <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content"></div>
-  <!-- Sidebar drawer -->
-  <div class="drawer-side z-[9999]">
-    <label for="mobile-drawer" aria-label="Close menu" class="drawer-overlay"></label>
+<!-- Mobile Menu Overlay & Panel -->
+<div id="mobile-menu-container" class="mobile-menu-container" data-state="closed">
+  <!-- Backdrop overlay -->
+  <div class="mobile-menu-backdrop" aria-hidden="true"></div>
 
-    <aside class="mobile-drawer-panel">
-      <!-- Header with close button -->
-      <header class="mobile-drawer-header">
-        <span class="mobile-drawer-title">Menu</span>
-        <label for="mobile-drawer" class="btn btn-ghost btn-circle" aria-label="Close menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </label>
-      </header>
+  <!-- Sidebar panel -->
+  <aside
+    id="mobile-menu-panel"
+    class="mobile-menu-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile navigation menu"
+  >
+    <!-- Header with close button -->
+    <header class="mobile-menu-header">
+      <span class="mobile-menu-title">Menu</span>
+      <button
+        type="button"
+        class="mobile-menu-close"
+        aria-label="Close menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
 
-      <!-- Navigation links -->
-      <nav class="mobile-drawer-nav">
-        <ul class="mobile-nav-list">
-          {mainNavigation.map((item) => (
-            <li>
-              {item.children ? (
-                <details class="mobile-nav-details">
-                  <summary class:list={['mobile-nav-link', { active: currentPath.startsWith(item.href) }]}>
-                    {item.label}
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </summary>
-                  <ul class="mobile-submenu">
-                    {item.children.map((child) => (
-                      <li>
-                        <a
-                          href={child.href}
-                          class:list={['mobile-submenu-link', { active: currentPath === child.href }]}
-                        >
-                          {child.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ) : (
-                <a
-                  href={item.href}
-                  class:list={['mobile-nav-link', { active: currentPath === item.href }]}
-                >
+    <!-- Navigation links -->
+    <nav class="mobile-menu-nav">
+      <ul class="mobile-nav-list">
+        {mainNavigation.map((item) => (
+          <li>
+            {item.children ? (
+              <details class="mobile-nav-details">
+                <summary class:list={['mobile-nav-link', { active: currentPath.startsWith(item.href) }]}>
                   {item.label}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
-      </nav>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mobile-nav-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </summary>
+                <ul class="mobile-submenu">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class:list={['mobile-submenu-link', { active: currentPath === child.href }]}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a
+                href={item.href}
+                class:list={['mobile-nav-link', { active: currentPath === item.href }]}
+              >
+                {item.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
 
-      <!-- CTA buttons -->
-      <div class="mobile-drawer-cta">
-        <a href="/appointments" class="btn btn-primary w-full gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          Book Appointment
-        </a>
-        <a href={formatPhoneLink(siteConfig.phone)} class="btn btn-outline w-full gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-          </svg>
-          Call {formatPhone(siteConfig.phone)}
-        </a>
+    <!-- CTA buttons -->
+    <div class="mobile-menu-cta">
+      <a href="/appointments" class="mobile-cta-btn mobile-cta-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        Book Appointment
+      </a>
+      <a href={formatPhoneLink(siteConfig.phone)} class="mobile-cta-btn mobile-cta-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+        Call {formatPhone(siteConfig.phone)}
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mobile-menu-footer">
+      <div class="mobile-footer-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        Woodside, NY
       </div>
-
-      <!-- Footer -->
-      <footer class="mobile-drawer-footer">
-        <div class="flex items-center gap-2 text-sm opacity-70">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          Woodside, NY
-        </div>
-        <span class="text-sm opacity-70">Open Mon-Sat</span>
-      </footer>
-    </aside>
-  </div>
+      <span class="mobile-footer-item">Open Mon-Sat</span>
+    </footer>
+  </aside>
 </div>
 
 <style>
-  /* Only show on mobile */
-  .drawer {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-    .drawer {
-      display: grid;
-      position: fixed;
-    }
-
-    .drawer-side {
-      position: fixed;
-      inset: 0;
-      height: 100dvh;
-      overflow-y: auto;
-    }
-  }
-
-  /* Hamburger button - matches other mobile header icons */
+  /* ============================================
+     HAMBURGER BUTTON
+     ============================================ */
   .mobile-menu-btn {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
+    padding: 0;
     color: var(--color-text-muted);
+    background: transparent;
+    border: none;
     border-radius: var(--radius-md);
     cursor: pointer;
     transition: color var(--transition-fast), background-color var(--transition-fast);
-
-    &:hover {
-      color: var(--color-primary);
-      background-color: var(--color-surface-sunken);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 2px;
-    }
   }
 
-  /* Drawer panel styling */
-  .mobile-drawer-panel {
-    display: flex;
-    flex-direction: column;
-    width: 70vw;
-    max-width: 320px;
-    min-height: 100%;
-    background-color: var(--color-surface-elevated);
-    color: var(--color-text);
-  }
-
-  /* Header */
-  .mobile-drawer-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .mobile-drawer-title {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  /* Navigation */
-  .mobile-drawer-nav {
-    flex: 1;
-    padding: 1rem;
-    overflow-y: auto;
-  }
-
-  .mobile-nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .mobile-nav-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.875rem 1rem;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text);
-    text-decoration: none;
-    border-radius: var(--radius-lg);
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: var(--color-surface-sunken);
-    }
-
-    &.active {
-      color: var(--color-primary);
-      background-color: oklch(from var(--color-primary) l c h / 0.1);
-    }
-  }
-
-  /* Details/Summary for submenus */
-  .mobile-nav-details {
-    width: 100%;
-
-    &[open] summary svg {
-      transform: rotate(180deg);
-    }
-  }
-
-  .mobile-nav-details summary {
-    list-style: none;
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-  }
-
-  .mobile-submenu {
-    list-style: none;
-    margin: 0.25rem 0 0 0;
-    padding: 0 0 0 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-
-  .mobile-submenu-link {
-    display: block;
-    padding: 0.75rem 1rem;
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    text-decoration: none;
-    border-radius: var(--radius-md);
-    transition: background-color 0.2s, color 0.2s;
-
-    &:hover {
-      background-color: var(--color-surface-sunken);
-      color: var(--color-text);
-    }
-
-    &.active {
-      color: var(--color-primary);
-      background-color: oklch(from var(--color-primary) l c h / 0.08);
-    }
-  }
-
-  /* CTA section */
-  .mobile-drawer-cta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    border-top: 1px solid var(--color-border);
-  }
-
-  /* Footer */
-  .mobile-drawer-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.25rem;
+  .mobile-menu-btn:hover {
+    color: var(--color-primary);
     background-color: var(--color-surface-sunken);
   }
 
-  /* Override DaisyUI button colors to use our theme */
-  .mobile-drawer-panel .btn-primary {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-text-inverted);
+  .mobile-menu-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 
-    &:hover {
+  /* ============================================
+     MOBILE MENU CONTAINER
+     ============================================ */
+  .mobile-menu-container {
+    display: none;
+  }
+
+  /* ============================================
+     MOBILE STYLES (max-width: 768px)
+     ============================================ */
+  @media (max-width: 768px) {
+    .mobile-menu-btn {
+      display: flex;
+    }
+
+    .mobile-menu-container {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      /* Critical: don't block clicks when closed */
+      pointer-events: none;
+    }
+
+    /* ----------------------------------------
+       BACKDROP
+       ---------------------------------------- */
+    .mobile-menu-backdrop {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* ----------------------------------------
+       PANEL
+       ---------------------------------------- */
+    .mobile-menu-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      width: min(80vw, 320px);
+      height: 100%;
+      /* iOS Safari viewport fix */
+      height: 100vh;
+      height: 100dvh;
+      background-color: var(--color-surface-elevated);
+      color: var(--color-text);
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    /* ----------------------------------------
+       OPEN STATE
+       ---------------------------------------- */
+    .mobile-menu-container[data-state="open"] {
+      pointer-events: auto;
+    }
+
+    .mobile-menu-container[data-state="open"] .mobile-menu-backdrop {
+      opacity: 1;
+    }
+
+    .mobile-menu-container[data-state="open"] .mobile-menu-panel {
+      transform: translateX(0);
+    }
+
+    /* ----------------------------------------
+       HEADER
+       ---------------------------------------- */
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .mobile-menu-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .mobile-menu-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      color: var(--color-text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: color var(--transition-fast), background-color var(--transition-fast);
+    }
+
+    .mobile-menu-close:hover {
+      color: var(--color-text);
+      background-color: var(--color-surface-sunken);
+    }
+
+    .mobile-menu-close:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* ----------------------------------------
+       NAVIGATION
+       ---------------------------------------- */
+    .mobile-menu-nav {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.875rem 1rem;
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text);
+      text-decoration: none;
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .mobile-nav-link:hover {
+      background-color: var(--color-surface-sunken);
+    }
+
+    .mobile-nav-link.active {
+      color: var(--color-primary);
+      background-color: oklch(from var(--color-primary) l c h / 0.1);
+    }
+
+    /* Details/Summary for submenus */
+    .mobile-nav-details {
+      width: 100%;
+    }
+
+    .mobile-nav-details[open] .mobile-nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    .mobile-nav-details summary {
+      list-style: none;
+    }
+
+    .mobile-nav-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-nav-chevron {
+      transition: transform 0.2s ease;
+    }
+
+    .mobile-submenu {
+      list-style: none;
+      margin: 0.25rem 0 0 0;
+      padding: 0 0 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+    }
+
+    .mobile-submenu-link {
+      display: block;
+      padding: 0.75rem 1rem;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .mobile-submenu-link:hover {
+      background-color: var(--color-surface-sunken);
+      color: var(--color-text);
+    }
+
+    .mobile-submenu-link.active {
+      color: var(--color-primary);
+      background-color: oklch(from var(--color-primary) l c h / 0.08);
+    }
+
+    /* ----------------------------------------
+       CTA BUTTONS
+       ---------------------------------------- */
+    .mobile-menu-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .mobile-cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: background-color var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .mobile-cta-primary {
+      background-color: var(--color-primary);
+      color: var(--color-text-inverted);
+      border: 2px solid var(--color-primary);
+    }
+
+    .mobile-cta-primary:hover {
       background-color: var(--color-primary-dark);
       border-color: var(--color-primary-dark);
     }
-  }
 
-  .mobile-drawer-panel .btn-outline {
-    border-color: var(--color-border);
-    color: var(--color-text);
-
-    &:hover {
-      background-color: var(--color-surface-sunken);
-      border-color: var(--color-border);
+    .mobile-cta-outline {
+      background-color: transparent;
       color: var(--color-text);
+      border: 2px solid var(--color-border);
     }
-  }
 
-  .mobile-drawer-panel .btn-ghost {
-    color: var(--color-text);
-
-    &:hover {
+    .mobile-cta-outline:hover {
       background-color: var(--color-surface-sunken);
+    }
+
+    /* ----------------------------------------
+       FOOTER
+       ---------------------------------------- */
+    .mobile-menu-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background-color: var(--color-surface-sunken);
+      flex-shrink: 0;
+    }
+
+    .mobile-footer-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
     }
   }
 </style>
+
+<script>
+  function initMobileMenu() {
+    const trigger = document.getElementById('mobile-menu-trigger');
+    const container = document.getElementById('mobile-menu-container');
+    const closeBtn = container?.querySelector('.mobile-menu-close');
+    const backdrop = container?.querySelector('.mobile-menu-backdrop');
+    const panel = document.getElementById('mobile-menu-panel');
+
+    if (!trigger || !container || !closeBtn || !backdrop || !panel) return;
+
+    let isOpen = false;
+
+    function openMenu() {
+      isOpen = true;
+      container.setAttribute('data-state', 'open');
+      trigger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      // Focus the close button for accessibility
+      (closeBtn as HTMLElement).focus();
+    }
+
+    function closeMenu() {
+      isOpen = false;
+      container.setAttribute('data-state', 'closed');
+      trigger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      // Return focus to trigger
+      trigger.focus();
+    }
+
+    // Open menu
+    trigger.addEventListener('click', openMenu);
+
+    // Close menu - close button
+    closeBtn.addEventListener('click', closeMenu);
+
+    // Close menu - backdrop click
+    backdrop.addEventListener('click', closeMenu);
+
+    // Close menu - Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeMenu();
+      }
+    });
+
+    // Close menu when clicking a link (for SPA-like navigation)
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        // Small delay to allow navigation to start
+        setTimeout(closeMenu, 100);
+      });
+    });
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+
+  // Re-initialize on Astro page transitions (View Transitions API)
+  document.addEventListener('astro:page-load', initMobileMenu);
+</script>
