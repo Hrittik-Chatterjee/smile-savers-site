@@ -1,0 +1,63 @@
+---
+/**
+ * Button - Reusable button component
+ * Supports primary, secondary, and outline variants
+ */
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  class?: string;
+  'aria-label'?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  class: className = '',
+  'aria-label': ariaLabel,
+} = Astro.props;
+
+const Element = href ? 'a' : 'button';
+
+const sizeClasses = {
+  sm: 'btn-sm',
+  md: '',
+  lg: 'btn-lg',
+};
+
+const variantClasses = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  outline: 'btn-outline',
+};
+---
+
+<Element
+  class:list={['btn', variantClasses[variant], sizeClasses[size], className]}
+  href={href}
+  type={!href ? type : undefined}
+  disabled={disabled}
+  aria-label={ariaLabel}
+  aria-disabled={disabled ? 'true' : undefined}
+>
+  <slot />
+</Element>
+
+<style>
+  .btn-sm {
+    padding: 0.5em 1em;
+    font-size: var(--font-size-sm);
+  }
+
+  .btn-lg {
+    padding: 1em 2em;
+    font-size: var(--font-size-lg);
+  }
+</style>

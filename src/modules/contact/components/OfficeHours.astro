@@ -1,0 +1,117 @@
+---
+/**
+ * OfficeHours - Office hours display table
+ */
+
+const hours = [
+  { day: "Monday", hours: "10:00 AM - 6:00 PM" },
+  { day: "Tuesday", hours: "10:00 AM - 6:00 PM" },
+  { day: "Wednesday", hours: "10:00 AM - 6:00 PM" },
+  { day: "Thursday", hours: "10:00 AM - 6:00 PM" },
+  { day: "Friday", hours: "9:00 AM - 6:00 PM" },
+  { day: "Saturday", hours: "9:00 AM - 5:00 PM" },
+  { day: "Sunday", hours: "Closed" },
+];
+
+// Get current day to highlight
+const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
+---
+
+<div class="office-hours">
+  <h3 class="hours-title">Office Hours</h3>
+
+  <table class="hours-table">
+    <tbody>
+      {hours.map((item) => (
+        <tr class={item.day === today ? "current-day" : ""}>
+          <td class="day-cell">{item.day}</td>
+          <td class={`hours-cell ${item.hours === "Closed" ? "closed" : ""}`}>
+            {item.hours}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p class="hours-note">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="16" x2="12" y2="12"/>
+      <line x1="12" y1="8" x2="12.01" y2="8"/>
+    </svg>
+    Emergency appointments available outside regular hours
+  </p>
+</div>
+
+<style>
+  .office-hours {
+    background: var(--color-surface-elevated);
+    padding: 2rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .hours-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: 1.5rem;
+  }
+
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .hours-table tr {
+    border-bottom: 1px solid var(--color-border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .hours-table td {
+    padding: 0.75rem 0;
+  }
+
+  .day-cell {
+    font-weight: var(--font-weight-medium);
+  }
+
+  .hours-cell {
+    text-align: right;
+    color: var(--color-text-muted);
+  }
+
+  .hours-cell.closed {
+    color: var(--color-error);
+  }
+
+  .current-day {
+    background: var(--color-primary-light);
+    border-radius: var(--radius-md);
+
+    td {
+      padding-inline: 0.75rem;
+    }
+
+    .day-cell {
+      color: var(--color-primary-dark);
+    }
+
+    .hours-cell {
+      color: var(--color-primary-dark);
+      font-weight: var(--font-weight-medium);
+    }
+  }
+
+  .hours-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+</style>

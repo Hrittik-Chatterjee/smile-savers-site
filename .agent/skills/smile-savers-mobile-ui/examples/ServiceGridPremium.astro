@@ -1,0 +1,137 @@
+---
+/**
+ * Premium Service Grid Component
+ *
+ * Responsive grid layout:
+ * - Mobile (<640px): 2 columns
+ * - Tablet (640px+): 3 columns
+ * - Desktop (1024px+): 4 columns
+ */
+
+import ServiceCardPremium from "./ServiceCardPremium.astro";
+
+export interface ServiceItem {
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+    href: string;
+    price?: string;
+}
+
+export interface Props {
+    /** Array of services to display */
+    services: ServiceItem[];
+    /** Section title */
+    title?: string;
+    /** Section subtitle */
+    subtitle?: string;
+}
+
+const {
+    services,
+    title = "Our Services",
+    subtitle = "Comprehensive dental care tailored to your needs",
+} = Astro.props;
+
+const gradients = ["blue", "gold", "teal", "purple"] as const;
+---
+
+<section
+    class="py-12 sm:py-16 md:py-20
+         bg-gradient-to-b from-white via-white to-neutral-50
+         dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-950
+         relative overflow-hidden"
+    aria-labelledby="services-title"
+>
+    <!-- Background Decorative Shapes -->
+    <div
+        class="absolute inset-0 overflow-hidden pointer-events-none"
+        aria-hidden="true"
+    >
+        <div
+            class="absolute top-0 right-1/4 w-96 h-96 bg-primary-100/30 dark:bg-primary-900/20 rounded-full blur-3xl animate-float"
+        >
+        </div>
+        <div
+            class="absolute bottom-0 left-1/4 w-96 h-96 bg-accent-100/30 dark:bg-accent-900/20 rounded-full blur-3xl animate-float"
+            style="animation-delay: -3s;"
+        >
+        </div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2
+                id="services-title"
+                class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl
+               font-serif text-neutral-900 dark:text-neutral-50
+               mb-3 sm:mb-4"
+            >
+                {title}
+            </h2>
+            <p
+                class="text-base sm:text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto"
+            >
+                {subtitle}
+            </p>
+        </div>
+
+        <!-- Service Cards Grid -->
+        <div
+            class="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-8"
+            role="list"
+            aria-label="Available dental services"
+        >
+            {
+                services.map((service, index) => (
+                    <div role="listitem">
+                        <ServiceCardPremium
+                            {...service}
+                            gradient={gradients[index % gradients.length]}
+                        />
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-10 sm:mt-12 md:mt-16">
+            <p
+                class="text-neutral-600 dark:text-neutral-400 text-base sm:text-lg mb-4 sm:mb-6"
+            >
+                Looking for something specific?
+            </p>
+            <a
+                href="/services"
+                class="inline-flex items-center gap-2
+               px-6 sm:px-8 py-3 sm:py-4
+               rounded-lg
+               bg-gradient-to-r from-primary-600 to-primary-700
+               dark:from-primary-500 dark:to-primary-600
+               text-white font-semibold
+               hover:shadow-lg hover:shadow-primary-200/50
+               dark:hover:shadow-primary-900/50
+               transition-all duration-300
+               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500
+               dark:focus:ring-offset-neutral-900"
+            >
+                View All Services
+                <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>

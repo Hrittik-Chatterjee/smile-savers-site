@@ -1,0 +1,110 @@
+/* stylelint-disable */
+@import "tailwindcss";
+
+@theme {
+    /* Primary Colors (Professional Blue) */
+    --color-primary-50: #f5f7ff;
+    --color-primary-100: #ebf0ff;
+    --color-primary-200: #d6e1ff;
+    --color-primary-300: #c2d2ff;
+    --color-primary-400: #98b4ff;
+    --color-primary-500: #6d96ff;
+    --color-primary-600: #4d75ff;
+    --color-primary-700: #2d54ff;
+    /* Base */
+    --color-primary-800: #1a37d4;
+    --color-primary-900: #0f1f80;
+    --color-primary-950: #0f1f3f;
+
+    /* Accent Colors (Trust Gold) */
+    --color-accent-50: #fffbf5;
+    --color-accent-100: #ffe8cc;
+    --color-accent-200: #ffd699;
+    --color-accent-300: #ffc466;
+    --color-accent-400: #d4a574;
+    /* Base */
+    --color-accent-500: #c89555;
+    --color-accent-600: #9d7d4f;
+
+    /* Typography */
+    --font-serif: "Playfair Display", serif;
+    --font-sans: "Geist Sans", system-ui, sans-serif;
+
+    /* Screen Breakpoints */
+    --breakpoint-xs: 375px;
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    /* Custom Animations */
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-bounce-subtle: bounce-subtle 0.6s ease-in-out;
+    --animate-glow: glow 2s ease-in-out infinite alternate;
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @keyframes bounce-subtle {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-4px);
+        }
+    }
+
+    @keyframes glow {
+        0% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+}
+
+/* Layer: Base Reset & Global Styles */
+@layer base {
+    body {
+        /* stylelint-disable-next-line scss/at-rule-no-unknown */
+        @apply antialiased text-neutral-900 bg-white dark:bg-neutral-950 dark:text-white transition-colors duration-300;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        /* stylelint-disable-next-line scss/at-rule-no-unknown */
+        @apply font-serif;
+    }
+}
+
+/* Layer: Components */
+@layer components {
+    .btn-primary {
+        /* stylelint-disable-next-line scss/at-rule-no-unknown */
+        @apply px-6 py-3 rounded-lg bg-primary-700 text-white font-semibold hover:bg-primary-800 transition-colors focus:ring-4 focus:ring-primary-200;
+    }
+
+    .card-base {
+        /* stylelint-disable-next-line scss/at-rule-no-unknown */
+        @apply p-6 rounded-2xl bg-white border border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700 transition-all duration-300;
+    }
+}

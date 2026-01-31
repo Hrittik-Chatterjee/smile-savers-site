@@ -1,0 +1,116 @@
+---
+/**
+ * LocationMap - Google Maps embed
+ * Lazy-loaded iframe for performance
+ */
+
+const mapAddress = "32-02 53rd Pl, Woodside, NY 11377";
+const encodedAddress = encodeURIComponent(mapAddress);
+const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodedAddress}`;
+
+// Fallback to basic embed without API key
+const fallbackMapUrl = `https://maps.google.com/maps?q=${encodedAddress}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+---
+
+<div class="location-map">
+  <h3 class="map-title">Find Us</h3>
+
+  <div class="map-container">
+    <iframe
+      src={fallbackMapUrl}
+      width="100%"
+      height="400"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Smile Savers location map"
+    ></iframe>
+  </div>
+
+  <div class="map-footer">
+    <a
+      href={`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="directions-link"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+      </svg>
+      Get Directions
+    </a>
+
+    <address class="map-address">
+      32-02 53rd Pl, Woodside, NY 11377
+    </address>
+  </div>
+</div>
+
+<style>
+  .location-map {
+    background: var(--color-surface-elevated);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .map-title {
+    font-size: var(--font-size-xl);
+    padding: 1.5rem 2rem;
+    margin: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .map-container {
+    width: 100%;
+    height: 400px;
+    background: var(--color-surface-sunken);
+  }
+
+  .map-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .map-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .directions-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-primary);
+    color: var(--color-text-inverted);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-medium);
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background: var(--color-primary-dark);
+    }
+  }
+
+  .map-address {
+    font-style: normal;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  @media (max-width: 480px) {
+    .map-footer {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

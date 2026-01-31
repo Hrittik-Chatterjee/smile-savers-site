@@ -1,0 +1,72 @@
+---
+/**
+ * ServiceGrid - Responsive grid of service cards
+ * Fetches from services content collection
+ */
+
+import { getCollection } from 'astro:content';
+import ServiceCard from './ServiceCard.astro';
+
+interface Props {
+  featured?: boolean;
+  category?: 'preventive' | 'cosmetic' | 'restorative' | 'emergency';
+  limit?: number;
+}
+
+const { featured, category, limit } = Astro.props;
+
+let services = await getCollection('services');
+
+// Filter by featured if specified
+if (featured !== undefined) {
+  services = services.filter(s => s.data.featured === featured);
+}
+
+// Filter by category if specified
+if (category) {
+  services = services.filter(s => s.data.category === category);
+}
+
+// Sort by order
+services = services.sort((a, b) => a.data.order - b.data.order);
+
+// Limit results if specified
+if (limit) {
+  services = services.slice(0, limit);
+}
+---
+
+<div class="service-grid">
+  {services.map((service) => (
+    <ServiceCard service={service} />
+  ))}
+</div>
+
+<style>
+  .service-grid {
+    display: grid;
+    /* Mobile: 2 columns, Tablet: 3 columns, Desktop: 4 columns */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .service-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .service-grid {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .service-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+</style>

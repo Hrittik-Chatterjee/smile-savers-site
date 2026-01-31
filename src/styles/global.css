@@ -1,0 +1,492 @@
+/* stylelint-disable */
+/**
+ * Smile Savers - Global Styles
+ * Tailwind CSS 4 Configuration via @theme directive
+ *
+ * All design tokens defined here. No tailwind.config.js needed.
+ */
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* ============================================
+   THEME CONFIGURATION
+   All custom properties defined via @theme
+   ============================================ */
+
+/* stylelint-disable at-rule-no-unknown */
+@theme {
+  /* ----------------------------------------
+     COLOR SYSTEM (OKLCH)
+     Perceptually uniform color space
+     ---------------------------------------- */
+
+  /* Brand Colors */
+  --color-primary: oklch(55% 0.18 240);
+  /* Dental blue */
+  --color-primary-light: oklch(70% 0.14 240);
+  --color-primary-dark: oklch(40% 0.20 240);
+
+  --color-secondary: oklch(65% 0.15 175);
+  /* Fresh mint/teal */
+  --color-secondary-light: oklch(80% 0.10 175);
+  --color-secondary-dark: oklch(50% 0.18 175);
+
+  --color-accent: oklch(75% 0.12 85);
+  /* Warm gold */
+
+  /* Semantic Colors */
+  --color-success: oklch(72% 0.19 145);
+  --color-warning: oklch(85% 0.18 85);
+  --color-error: oklch(62% 0.25 25);
+  --color-info: oklch(65% 0.15 240);
+
+  /* Neutral Palette */
+  --color-neutral-50: oklch(98% 0.005 240);
+  --color-neutral-100: oklch(95% 0.008 240);
+  --color-neutral-200: oklch(90% 0.010 240);
+  --color-neutral-300: oklch(82% 0.012 240);
+  --color-neutral-400: oklch(65% 0.015 240);
+  --color-neutral-500: oklch(50% 0.015 240);
+  --color-neutral-600: oklch(40% 0.015 240);
+  --color-neutral-700: oklch(30% 0.012 240);
+  --color-neutral-800: oklch(22% 0.010 240);
+  --color-neutral-900: oklch(15% 0.008 240);
+  --color-neutral-950: oklch(10% 0.005 240);
+
+  /* Surface Colors */
+  --color-surface: var(--color-neutral-50);
+  --color-surface-elevated: oklch(100% 0 0);
+  --color-surface-sunken: var(--color-neutral-100);
+
+  /* Text Colors */
+  --color-text: var(--color-neutral-900);
+  --color-text-muted: var(--color-neutral-600);
+  --color-text-inverted: var(--color-neutral-50);
+
+  /* Border Colors */
+  --color-border: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-300);
+
+  /* ----------------------------------------
+     TYPOGRAPHY
+     ---------------------------------------- */
+
+  --font-family-sans: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-heading: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", var(--font-family-sans);
+  --font-family-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  /* Font Sizes (fluid) */
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
+  --font-size-sm: clamp(0.8125rem, 0.775rem + 0.25vw, 0.875rem);
+  --font-size-base: clamp(0.9375rem, 0.9rem + 0.25vw, 1rem);
+  --font-size-lg: clamp(1.0625rem, 1rem + 0.35vw, 1.125rem);
+  --font-size-xl: clamp(1.1875rem, 1.1rem + 0.5vw, 1.3125rem);
+  --font-size-2xl: clamp(1.4375rem, 1.3rem + 0.75vw, 1.625rem);
+  --font-size-3xl: clamp(1.75rem, 1.5rem + 1vw, 2rem);
+  --font-size-4xl: clamp(2.125rem, 1.8rem + 1.5vw, 2.625rem);
+  --font-size-5xl: clamp(2.75rem, 2.2rem + 2vw, 3.5rem);
+
+  /* Line Heights */
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+  --line-height-loose: 1.8;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ----------------------------------------
+     SPACING
+     ---------------------------------------- */
+
+  --spacing-section: clamp(4rem, 3rem + 4vw, 6rem);
+  --spacing-block: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --spacing-element: clamp(1rem, 0.75rem + 1vw, 1.5rem);
+
+  /* ----------------------------------------
+     LAYOUT
+     ---------------------------------------- */
+
+  --container-sm: 40rem;
+  /* 640px */
+  --container-md: 48rem;
+  /* 768px */
+  --container-lg: 64rem;
+  /* 1024px */
+  --container-xl: 80rem;
+  /* 1280px */
+  --container-prose: 65ch;
+
+  /* ----------------------------------------
+     BORDERS & RADII
+     ---------------------------------------- */
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ----------------------------------------
+     SHADOWS (using OKLCH alpha)
+     ---------------------------------------- */
+
+  --shadow-sm: 0 1px 2px oklch(20% 0.02 240 / 0.05);
+  --shadow-md: 0 4px 6px oklch(20% 0.02 240 / 0.08), 0 2px 4px oklch(20% 0.02 240 / 0.04);
+  --shadow-lg: 0 10px 15px oklch(20% 0.02 240 / 0.10), 0 4px 6px oklch(20% 0.02 240 / 0.05);
+  --shadow-xl: 0 20px 25px oklch(20% 0.02 240 / 0.12), 0 8px 10px oklch(20% 0.02 240 / 0.06);
+
+  /* ----------------------------------------
+     TRANSITIONS
+     ---------------------------------------- */
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ----------------------------------------
+     Z-INDEX SCALE
+     ---------------------------------------- */
+
+  --z-base: 0;
+  --z-above: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-tooltip: 600;
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   Applied when data-theme="dark" on <html>
+   ============================================ */
+
+[data-theme="dark"] {
+  /* Surface colors - inverted for dark backgrounds */
+  --color-surface: var(--color-neutral-900);
+  --color-surface-elevated: var(--color-neutral-800);
+  --color-surface-sunken: var(--color-neutral-950);
+
+  /* Text colors - light text on dark backgrounds */
+  --color-text: var(--color-neutral-50);
+  --color-text-muted: var(--color-neutral-400);
+  --color-text-inverted: var(--color-neutral-900);
+
+  /* Border colors - subtle on dark */
+  --color-border: var(--color-neutral-700);
+  --color-border-strong: var(--color-neutral-600);
+
+  /* Adjust brand colors for dark mode visibility */
+  --color-primary-light: oklch(65% 0.16 240);
+  --color-secondary-light: oklch(70% 0.13 175);
+
+  /* Shadows need more opacity on dark backgrounds */
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.2);
+  --shadow-md: 0 4px 6px oklch(0% 0 0 / 0.25), 0 2px 4px oklch(0% 0 0 / 0.15);
+  --shadow-lg: 0 10px 15px oklch(0% 0 0 / 0.3), 0 4px 6px oklch(0% 0 0 / 0.2);
+  --shadow-xl: 0 20px 25px oklch(0% 0 0 / 0.35), 0 8px 10px oklch(0% 0 0 / 0.25);
+}
+
+/* ============================================
+   THEME TOGGLE ICONS
+   Controls sun/moon visibility based on theme
+   ============================================ */
+
+/* Light mode (default): show moon, hide sun */
+.theme-toggle .sun-icon {
+  display: none !important;
+}
+
+.theme-toggle .moon-icon {
+  display: block !important;
+}
+
+/* Dark mode: show sun, hide moon */
+[data-theme="dark"] .theme-toggle .sun-icon {
+  display: block !important;
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+  display: none !important;
+}
+
+/* ============================================
+   BASE LAYER
+   Reset and foundational styles
+   ============================================ */
+
+@layer base {
+  html {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+
+    /* Optimize text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+
+  /* Headings use display font */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+    /* stylelint-disable-next-line property-no-unknown */
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--font-size-5xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-4xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-3xl);
+  }
+
+  h4 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h5 {
+    font-size: var(--font-size-xl);
+  }
+
+  h6 {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Links */
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--color-primary-dark);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  /* Images */
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Form elements */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Focus visible for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================
+   COMPONENT LAYER
+   Reusable component patterns
+   ============================================ */
+
+@layer components {
+
+  /* Container */
+  .container {
+    width: 100%;
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  /* Prose container for content */
+  .prose {
+    max-width: var(--container-prose);
+
+    &>*+* {
+      margin-top: 1.5em;
+    }
+
+    & p {
+      line-height: var(--line-height-relaxed);
+    }
+  }
+
+  /* Section spacing */
+  .section {
+    padding-block: var(--spacing-section);
+  }
+
+  /* Card pattern */
+  .card {
+    background: var(--color-surface-elevated);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-element);
+  }
+
+  /* Button base */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.75em 1.5em;
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast),
+      box-shadow var(--transition-fast);
+    cursor: pointer;
+    border: none;
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-text-inverted);
+
+    &:hover:not(:disabled) {
+      background: var(--color-primary-dark);
+    }
+  }
+
+  .btn-secondary {
+    background: var(--color-secondary);
+    color: var(--color-text-inverted);
+
+    &:hover:not(:disabled) {
+      background: var(--color-secondary-dark);
+    }
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+
+    &:hover:not(:disabled) {
+      background: var(--color-primary);
+      color: var(--color-text-inverted);
+    }
+  }
+}
+
+/* ============================================
+   UTILITIES LAYER
+   One-off utility classes
+   ============================================ */
+
+@layer utilities {
+
+  /* Screen reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    position: fixed;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-tooltip);
+    padding: 1em 2em;
+    background: var(--color-primary);
+    color: var(--color-text-inverted);
+    border-radius: var(--radius-md);
+    transition: top var(--transition-fast);
+
+    &:focus {
+      top: 1rem;
+    }
+  }
+
+  /* Text balance for headings */
+  .text-balance {
+    /* stylelint-disable-next-line property-no-unknown */
+    text-wrap: balance;
+  }
+
+  /* Text pretty for paragraphs */
+  .text-pretty {
+    /* stylelint-disable-next-line property-no-unknown */
+    text-wrap: pretty;
+  }
+}

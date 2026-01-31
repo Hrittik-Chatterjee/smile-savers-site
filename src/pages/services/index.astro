@@ -1,0 +1,192 @@
+---
+/**
+ * Services Index Page
+ * Displays all dental services in a filterable grid
+ */
+
+import PageLayout from "@/layouts/PageLayout.astro";
+import ServiceGrid from "@/modules/services/components/ServiceGrid.astro";
+import Button from "@/components/ui/Button.astro";
+
+const title = "Our Services";
+const description =
+  "Comprehensive dental services from preventive care to advanced restorative procedures. Smile Savers offers expert care for the whole family.";
+---
+
+<PageLayout title={title} description={description}>
+  <main id="main-content">
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="header-container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li aria-current="page">Services</li>
+          </ol>
+        </nav>
+        <h1 class="page-title">{title}</h1>
+        <p class="page-description">
+          From routine checkups to advanced restorative procedures, we provide
+          comprehensive dental care for patients of all ages.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-section section" aria-labelledby="all-services">
+      <div class="services-container">
+        <h2 id="all-services" class="sr-only">All Services</h2>
+        <ServiceGrid />
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-container">
+        <h2 class="cta-title">Not Sure Which Service You Need?</h2>
+        <p class="cta-description">
+          Schedule a consultation and our team will help you find the right
+          treatment plan for your needs.
+        </p>
+        <div class="cta-buttons">
+          <Button href="/appointments" variant="primary">
+            Book Consultation
+          </Button>
+          <Button href="/contact" variant="outline">Contact Us</Button>
+        </div>
+      </div>
+    </section>
+  </main>
+</PageLayout>
+
+<style>
+  /* Page Header */
+  .page-header {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-light),
+      var(--color-secondary-light)
+    );
+    padding-block: var(--spacing-section);
+  }
+
+  .header-container {
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+    text-align: center;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .breadcrumb li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:not(:last-child)::after {
+      content: "/";
+      color: var(--color-text-muted);
+    }
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-primary-dark);
+      text-decoration: underline;
+    }
+  }
+
+  .breadcrumb [aria-current="page"] {
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .page-title {
+    font-size: var(--font-size-5xl);
+    margin-bottom: 1rem;
+    color: var(--color-primary-dark);
+  }
+
+  .page-description {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin-inline: auto;
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Services Section */
+  .services-section {
+    background: var(--color-surface);
+  }
+
+  .services-container {
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: var(--color-primary-dark);
+    color: var(--color-text-inverted);
+    padding-block: var(--spacing-section);
+    text-align: center;
+  }
+
+  .cta-container {
+    max-width: 600px;
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  .cta-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 1rem;
+    color: var(--color-text-inverted);
+  }
+
+  .cta-description {
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  /* Utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>

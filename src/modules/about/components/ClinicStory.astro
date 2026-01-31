@@ -1,0 +1,159 @@
+---
+/**
+ * ClinicStory - Clinic history and founding story section
+ */
+---
+
+<section class="clinic-story section" aria-labelledby="story-heading">
+  <div class="story-container">
+    <div class="story-content">
+      <h2 id="story-heading" class="story-title">Our Story</h2>
+      <p class="story-lead">
+        For over 35 years, Smile Savers has been the trusted dental home for
+        families in Woodside and throughout Queens.
+      </p>
+
+      <div class="story-text">
+        <p>
+          Founded in 1987 by Dr. Deepak Bhagat, Smile Savers was built on a
+          simple philosophy: every patient deserves exceptional dental care
+          delivered with compassion and respect.
+        </p>
+        <p>
+          After graduating from NYU College of Dentistry, Dr. Bhagat saw an
+          opportunity to create something different — a practice where advanced
+          technology meets personalized attention, where patients feel like
+          family rather than numbers.
+        </p>
+        <p>
+          Today, that vision continues. Our team has grown, our technology has
+          evolved, but our commitment to patient-centered care remains
+          unchanged. We've had the privilege of caring for multiple generations
+          of families, watching children grow up and bring their own children to
+          us.
+        </p>
+      </div>
+
+      <div class="story-stats">
+        <div class="stat">
+          <span class="stat-number">1987</span>
+          <span class="stat-label">Founded</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">35+</span>
+          <span class="stat-label">Years of Service</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">10,000+</span>
+          <span class="stat-label">Happy Patients</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-image">
+      <div class="image-placeholder" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Smile Savers Clinic</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .clinic-story {
+    background: var(--color-surface);
+  }
+
+  .story-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-block);
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .story-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .story-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: 1rem;
+  }
+
+  .story-lead {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 1.5rem;
+  }
+
+  .story-text {
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+
+    p {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .story-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-number {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+  }
+
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .story-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--color-primary-dark);
+
+    span {
+      font-weight: var(--font-weight-medium);
+    }
+  }
+</style>

@@ -1,0 +1,139 @@
+---
+/**
+ * ValuesList - Core values grid
+ * Displays the clinic's 4 core values
+ */
+
+const values = [
+  {
+    title: "Quality Care",
+    description:
+      "We maintain the highest standards in dental care, using proven techniques and premium materials for lasting results.",
+    icon: "award",
+  },
+  {
+    title: "Patient Comfort",
+    description:
+      "Your comfort is our priority. We create a relaxing environment and offer gentle treatment options for anxious patients.",
+    icon: "heart",
+  },
+  {
+    title: "Advanced Technology",
+    description:
+      "From digital X-rays to CEREC same-day crowns, we invest in the latest technology for better outcomes.",
+    icon: "zap",
+  },
+  {
+    title: "Experience",
+    description:
+      "With over 35 years of combined experience, our team has the expertise to handle even complex dental cases.",
+    icon: "shield",
+  },
+];
+
+const iconPaths: Record<string, string> = {
+  award: "M12 15l-2 5-3-1.5V22l5-3 5 3v-3.5L14 20l-2-5zm3.5-3a3.5 3.5 0 1 0-7 0 3.5 3.5 0 0 0 7 0zM12 2a7 7 0 0 0-5.5 11.2V22l5.5-3 5.5 3v-8.8A7 7 0 0 0 12 2z",
+  heart: "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z",
+  zap: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+};
+---
+
+<section class="values-section section" aria-labelledby="values-heading">
+  <div class="values-container">
+    <header class="values-header">
+      <h2 id="values-heading" class="values-title">Our Values</h2>
+      <p class="values-subtitle">
+        The principles that guide everything we do at Smile Savers.
+      </p>
+    </header>
+
+    <div class="values-grid">
+      {values.map((value) => (
+        <article class="value-card">
+          <div class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={iconPaths[value.icon]} />
+            </svg>
+          </div>
+          <h3 class="value-title">{value.title}</h3>
+          <p class="value-description">{value.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .values-section {
+    background: var(--color-surface-sunken);
+  }
+
+  .values-container {
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  .values-header {
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: var(--spacing-block);
+  }
+
+  .values-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: 1rem;
+  }
+
+  .values-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .value-card {
+    background: var(--color-surface-elevated);
+    padding: 2rem;
+    border-radius: var(--radius-xl);
+    text-align: center;
+    border: 1px solid var(--color-border);
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+
+    &:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+  }
+
+  .value-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-inline: auto;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
+    border-radius: var(--radius-lg);
+    color: var(--color-primary-dark);
+  }
+
+  .value-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: 0.75rem;
+  }
+
+  .value-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+</style>

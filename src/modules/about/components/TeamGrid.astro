@@ -1,0 +1,82 @@
+---
+/**
+ * TeamGrid - Responsive grid of team member cards
+ * Fetches from team content collection
+ */
+
+import { getCollection } from "astro:content";
+import TeamCard from "./TeamCard.astro";
+
+const team = await getCollection("team");
+const sortedTeam = team.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="team-section" aria-labelledby="team-heading">
+  <header class="team-header">
+    <h2 id="team-heading" class="team-title">Meet Our Team</h2>
+    <p class="team-subtitle">
+      Our experienced dental professionals are dedicated to providing you with
+      the highest quality care in a comfortable, welcoming environment.
+    </p>
+  </header>
+
+  <div class="team-grid">
+    {sortedTeam.map((member) => (
+      <TeamCard member={member} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .team-section {
+    padding-block: var(--spacing-section);
+  }
+
+  .team-header {
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: var(--spacing-block);
+  }
+
+  .team-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: 1rem;
+  }
+
+  .team-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .team-grid {
+    display: grid;
+    /* Mobile: 2 columns, Tablet: 3 columns, Desktop: 4 columns */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  @media (min-width: 640px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .team-grid {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .team-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+</style>

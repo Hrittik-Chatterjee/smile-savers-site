@@ -1,0 +1,44 @@
+---
+/**
+ * PageLayout - Page wrapper with Header and Footer
+ * Extends BaseLayout with navigation structure
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import SkipLink from '@/components/common/SkipLink.astro';
+import AccessibilityMenu from '@/modules/accessibility/components/AccessibilityMenu.astro';
+import MobileBottomBar from '@/components/layout/MobileBottomBar.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
+const { title, description, canonicalUrl, ogImage } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} canonicalUrl={canonicalUrl} ogImage={ogImage}>
+  <SkipLink />
+  <Header />
+
+  <main id="main-content" tabindex="-1">
+    <slot />
+  </main>
+
+  <Footer />
+  <MobileBottomBar />
+  <AccessibilityMenu />
+</BaseLayout>
+
+<style>
+  /* Add padding to footer on mobile to account for bottom bar */
+  @media (max-width: 768px) {
+    :global(footer) {
+      padding-bottom: 5rem;
+    }
+  }
+</style>

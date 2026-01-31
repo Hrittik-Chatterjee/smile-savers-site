@@ -1,0 +1,33 @@
+---
+/**
+ * Dynamic Service Detail Page
+ * Renders individual service pages from content collection
+ */
+
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+import ServiceDetail from "../../modules/services/components/ServiceDetail.astro";
+
+export async function getStaticPaths() {
+  const services = await getCollection("services");
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { title, description } = service.data;
+---
+
+<PageLayout title={`${title} | Smile Savers`} description={description}>
+  <main id="main-content" class="service-page">
+    <ServiceDetail service={service} />
+  </main>
+</PageLayout>
+
+<style>
+  .service-page {
+    padding-block: var(--spacing-block);
+  }
+</style>

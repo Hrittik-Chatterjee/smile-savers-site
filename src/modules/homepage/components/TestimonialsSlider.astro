@@ -1,0 +1,241 @@
+---
+/**
+ * TestimonialsSlider - CSS scroll-snap testimonials
+ * Zero-JS implementation using native scroll behavior
+ */
+
+const testimonials = [
+  {
+    quote:
+      "Dr. Bhagat and his team have been taking care of my family's dental needs for over 20 years. The quality of care and genuine concern they show is unmatched.",
+    author: "Maria S.",
+    rating: 5,
+  },
+  {
+    quote:
+      "I was terrified of dentists until I came to Smile Savers. Dr. Lee made me feel completely at ease, and now I actually look forward to my appointments!",
+    author: "James K.",
+    rating: 5,
+  },
+  {
+    quote:
+      "The CEREC technology here is amazing. I got a crown in one visit instead of waiting weeks. Highly recommend for anyone who values their time.",
+    author: "Patricia D.",
+    rating: 5,
+  },
+  {
+    quote:
+      "After my dental implant procedure, I can eat and smile with complete confidence again. Dr. Bhagat's expertise is truly exceptional.",
+    author: "Robert M.",
+    rating: 5,
+  },
+  {
+    quote:
+      "The entire staff is friendly and professional. They always explain everything thoroughly and make sure you're comfortable. Best dental experience ever!",
+    author: "Linda T.",
+    rating: 5,
+  },
+];
+---
+
+<section class="testimonials section" aria-labelledby="testimonials-heading">
+  <div class="testimonials-container">
+    <header class="testimonials-header">
+      <h2 id="testimonials-heading" class="testimonials-title">
+        What Our Patients Say
+      </h2>
+      <p class="testimonials-subtitle">
+        Real stories from real patients about their experience at Smile Savers.
+      </p>
+    </header>
+
+    <div
+      class="testimonials-slider"
+      role="region"
+      aria-label="Patient testimonials carousel"
+    >
+      <div class="testimonials-track">
+        {
+          testimonials.map((testimonial) => (
+            <article
+              class="testimonial-card"
+              aria-label={`Testimonial from ${testimonial.author}`}
+            >
+              <div
+                class="testimonial-rating"
+                aria-label={`Rating: ${testimonial.rating} out of 5 stars`}
+              >
+                {Array.from({ length: testimonial.rating }).map(() => (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                ))}
+              </div>
+              <blockquote class="testimonial-quote">
+                "{testimonial.quote}"
+              </blockquote>
+              <footer class="testimonial-author">
+                <div class="author-avatar">{testimonial.author.charAt(0)}</div>
+                <cite class="author-name">{testimonial.author}</cite>
+              </footer>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="testimonials-hint">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+      Scroll to see more reviews
+    </p>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background-color: var(--color-surface-sunken);
+  }
+
+  .testimonials-container {
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  .testimonials-header {
+    text-align: center;
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: var(--spacing-block);
+  }
+
+  .testimonials-title {
+    margin-bottom: 1rem;
+  }
+
+  .testimonials-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+  }
+
+  .testimonials-slider {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .testimonials-track {
+    display: flex;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .testimonial-card {
+    flex: 0 0 min(350px, 85vw);
+    scroll-snap-align: start;
+    padding: 2rem;
+    background: var(--color-surface-elevated);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-rating {
+    display: flex;
+    gap: 0.25rem;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-quote {
+    flex: 1;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text);
+    margin: 0 0 1.5rem 0;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .author-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    color: var(--color-text-inverted);
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .author-name {
+    font-style: normal;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+
+  .testimonials-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials-hint {
+      display: none;
+    }
+
+    .testimonials-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: visible;
+    }
+
+    .testimonial-card {
+      flex: none;
+    }
+
+    .testimonial-card:nth-child(n + 4) {
+      display: none;
+    }
+  }
+</style>

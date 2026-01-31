@@ -1,0 +1,148 @@
+---
+/**
+ * Testimonial Card Component
+ * 
+ * Features:
+ * - Filled background (accent-50) styling
+ * - FTC compliant (Google-verified reviews only)
+ * - HIPAA safe (no patient health info)
+ * - Star rating display
+ * - Dark/Light mode support
+ * 
+ * @example
+ * <TestimonialCard
+ *   id="review-1"
+ *   author="John D."
+ *   rating={5}
+ *   text="Best dental experience I've ever had!"
+ *   date="2024-12-15"
+ *   verified={true}
+ *   source="Google"
+ * />
+ */
+
+export interface Props {
+  /** Unique identifier */
+  id: string;
+  /** Reviewer name (first name + last initial for privacy) */
+  author: string;
+  /** Star rating 1-5 */
+  rating: number;
+  /** Review text */
+  text: string;
+  /** Review date (ISO string) */
+  date?: string;
+  /** Whether review is verified */
+  verified?: boolean;
+  /** Review source (Google, Yelp, etc.) */
+  source?: string;
+  /** Service received (optional, public info only) */
+  service?: string;
+}
+
+const {
+  id,
+  author,
+  rating,
+  text,
+  date,
+  verified = false,
+  source = 'Google',
+  service,
+} = Astro.props;
+
+// Format date for display
+const formattedDate = date 
+  ? new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+  : null;
+
+// Clamp rating between 1-5
+const stars = Math.min(5, Math.max(1, Math.round(rating)));
+---
+
+<article 
+  id={`testimonial-${id}`}
+  class="group relative h-full rounded-2xl p-6 sm:p-8
+         bg-gradient-to-br from-accent-50 to-white
+         dark:from-neutral-800 dark:to-neutral-850
+         border border-accent-100 dark:border-neutral-700
+         transition-all duration-300 ease-out
+         hover:shadow-lg hover:border-accent-200 dark:hover:border-neutral-600"
+>
+  <!-- Quote Icon -->
+  <div class="absolute top-4 right-4 opacity-10 dark:opacity-20" aria-hidden="true">
+    <svg class="w-12 h-12 text-accent-400" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+    </svg>
+  </div>
+
+  <!-- Star Rating -->
+  <div class="flex items-center gap-1 mb-4" aria-label={`${stars} out of 5 stars`}>
+    {Array.from({ length: 5 }).map((_, i) => (
+      <svg 
+        class:list={[
+          'w-5 h-5',
+          i < stars ? 'text-amber-400' : 'text-neutral-200 dark:text-neutral-600'
+        ]} 
+        fill="currentColor" 
+        viewBox="0 0 20 20"
+        aria-hidden="true"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+      </svg>
+    ))}
+  </div>
+
+  <!-- Review Text -->
+  <blockquote class="mb-4">
+    <p class="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed line-clamp-4 italic">
+      "{text}"
+    </p>
+  </blockquote>
+
+  <!-- Service Tag (if provided) -->
+  {service && (
+    <div class="mb-4">
+      <span class="inline-block px-2 py-1 text-xs rounded-full
+                   bg-primary-50 dark:bg-primary-900/30
+                   text-primary-700 dark:text-primary-300
+                   border border-primary-100 dark:border-primary-800">
+        {service}
+      </span>
+    </div>
+  )}
+
+  <!-- Author & Meta -->
+  <footer class="flex items-center justify-between flex-wrap gap-2">
+    <div class="flex items-center gap-2">
+      <!-- Avatar placeholder -->
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-100 to-primary-200
+                  dark:from-primary-800 dark:to-primary-900
+                  flex items-center justify-center">
+        <span class="text-sm font-semibold text-primary-700 dark:text-primary-300">
+          {author.charAt(0).toUpperCase()}
+        </span>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+          {author}
+        </p>
+        {formattedDate && (
+          <p class="text-xs text-neutral-500 dark:text-neutral-400">
+            {formattedDate}
+          </p>
+        )}
+      </div>
+    </div>
+
+    <!-- Verified Badge -->
+    {verified && (
+      <div class="flex items-center gap-1 text-xs text-green-600 dark:text-green-400">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <span>Verified {source} Review</span>
+      </div>
+    )}
+  </footer>
+</article>

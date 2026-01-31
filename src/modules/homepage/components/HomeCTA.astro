@@ -1,0 +1,239 @@
+---
+/**
+ * HomeCTA - Call to action section for homepage
+ */
+
+import Button from '@/components/ui/Button.astro';
+---
+
+<section class="home-cta section" aria-labelledby="cta-heading">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h2 id="cta-heading" class="cta-title">Ready for a Healthier Smile?</h2>
+      <p class="cta-description">
+        Schedule your appointment today and experience the Smile Savers difference.
+        New patients welcome — we're accepting appointments now.
+      </p>
+      <div class="cta-actions">
+        <Button href="/appointments" variant="primary" size="lg">
+          Book Your Appointment
+        </Button>
+        <div class="cta-phone">
+          <span class="phone-label">Or call us directly:</span>
+          <a href="tel:+17189568400" class="phone-number">(718) 956-8400</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-info">
+      <div class="info-card">
+        <h3 class="info-title">Visit Us</h3>
+        <address class="info-address">
+          32-02 53rd Place<br>
+          Woodside, NY 11377
+        </address>
+        <a href="https://maps.google.com/?q=32-02+53rd+Pl,+Woodside,+NY+11377"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="info-link">
+          Get Directions
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="info-card">
+        <h3 class="info-title">Office Hours</h3>
+        <dl class="hours-list">
+          <div class="hours-row">
+            <dt>Mon - Thu</dt>
+            <dd>10 AM - 6 PM</dd>
+          </div>
+          <div class="hours-row">
+            <dt>Friday</dt>
+            <dd>9 AM - 6 PM</dd>
+          </div>
+          <div class="hours-row">
+            <dt>Saturday</dt>
+            <dd>9 AM - 5 PM</dd>
+          </div>
+          <div class="hours-row">
+            <dt>Sunday</dt>
+            <dd>Closed</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-cta {
+    background: linear-gradient(
+      135deg,
+      var(--color-surface) 0%,
+      var(--color-surface-sunken) 100%
+    );
+  }
+
+  .cta-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-block);
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  @media (min-width: 1024px) {
+    .cta-container {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .cta-content {
+    text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .cta-content {
+      text-align: left;
+    }
+  }
+
+  .cta-title {
+    font-size: var(--font-size-4xl);
+    margin-bottom: 1rem;
+  }
+
+  .cta-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    max-width: 540px;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .cta-description {
+      margin-inline: 0;
+    }
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .cta-actions {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .cta-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    .cta-phone {
+      align-items: flex-start;
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--color-border);
+    }
+  }
+
+  .phone-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .phone-number {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .cta-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .cta-info {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .info-card {
+    padding: 1.5rem;
+    background: var(--color-surface-elevated);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: 0.75rem;
+  }
+
+  .info-address {
+    font-style: normal;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 0.75rem;
+  }
+
+  .info-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .hours-list {
+    margin: 0;
+  }
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: var(--font-size-sm);
+    padding: 0.25rem 0;
+
+    dt {
+      color: var(--color-text-muted);
+    }
+
+    dd {
+      margin: 0;
+      font-weight: var(--font-weight-medium);
+    }
+  }
+</style>
