@@ -5,7 +5,7 @@
  */
 
 interface Props {
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -36,6 +36,7 @@ const variantClasses = {
   primary: 'btn-primary',
   secondary: 'btn-secondary',
   outline: 'btn-outline',
+  ghost: 'btn-ghost',
 };
 ---
 

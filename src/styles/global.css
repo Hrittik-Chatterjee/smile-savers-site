@@ -438,6 +438,16 @@
       color: var(--color-text-inverted);
     }
   }
+
+  .btn-ghost {
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+
+    &:hover:not(:disabled) {
+      background: var(--color-surface-hover, rgba(0, 0, 0, 0.05));
+    }
+  }
 }
 
 /* ============================================
