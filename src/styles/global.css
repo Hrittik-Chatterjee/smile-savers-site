@@ -232,6 +232,7 @@
     background-color: var(--color-surface);
     scroll-behavior: smooth;
     overflow-x: hidden; /* Prevent horizontal scroll */
+    scrollbar-gutter: stable; /* Prevent layout shift when scrollbar appears/disappears */
 
     /* Optimize text rendering */
     -webkit-font-smoothing: antialiased;

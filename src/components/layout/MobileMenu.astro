@@ -185,7 +185,7 @@ const currentPath = Astro.url.pathname;
        BACKDROP
        ---------------------------------------- */
     .mobile-menu-backdrop {
-      position: absolute;
+      position: fixed;
       inset: 0;
       background-color: rgba(0, 0, 0, 0.5);
       opacity: 0;
@@ -193,27 +193,27 @@ const currentPath = Astro.url.pathname;
     }
 
     /* ----------------------------------------
-       PANEL
+       PANEL - Slides from top
        ---------------------------------------- */
     .mobile-menu-panel {
-      position: absolute;
+      position: fixed;
       top: 0;
+      left: 0;
       right: 0;
-      bottom: 0;
       display: flex;
       flex-direction: column;
-      width: min(80vw, 320px);
-      height: 100%;
-      /* iOS Safari viewport fix */
-      height: 100vh;
-      height: 100dvh;
+      width: 100%;
+      max-height: 85vh;
+      max-height: 85dvh;
       background-color: var(--color-surface-elevated);
       color: var(--color-text);
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-      transform: translateX(100%);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-100%);
       transition: transform 0.3s ease;
       overflow-y: auto;
       overscroll-behavior: contain;
+      border-bottom-left-radius: var(--radius-xl, 1rem);
+      border-bottom-right-radius: var(--radius-xl, 1rem);
     }
 
     /* ----------------------------------------
@@ -228,7 +228,7 @@ const currentPath = Astro.url.pathname;
     }
 
     .mobile-menu-container[data-state="open"] .mobile-menu-panel {
-      transform: translateX(0);
+      transform: translateY(0);
     }
 
     /* ----------------------------------------
@@ -417,10 +417,13 @@ const currentPath = Astro.url.pathname;
     .mobile-menu-footer {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 1.5rem;
       padding: 1rem 1.25rem;
       background-color: var(--color-surface-sunken);
       flex-shrink: 0;
+      border-bottom-left-radius: var(--radius-xl, 1rem);
+      border-bottom-right-radius: var(--radius-xl, 1rem);
     }
 
     .mobile-footer-item {
