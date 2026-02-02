@@ -1,0 +1,111 @@
+---
+/**
+ * Affiliations - Display partner/affiliation logos
+ * Horizontal layout with responsive grid
+ */
+
+const affiliations = [
+  { src: "/aff1.png", alt: "Affiliation Partner 1" },
+  { src: "/aff2.png", alt: "Affiliation Partner 2" },
+  { src: "/aff3.png", alt: "Affiliation Partner 3" },
+  { src: "/aff4.png", alt: "Affiliation Partner 4" },
+  { src: "/aff5-300x68.png", alt: "Affiliation Partner 5" },
+  { src: "/aff6.png", alt: "Affiliation Partner 6" },
+];
+---
+
+<section class="affiliations" aria-label="Our affiliations and partnerships">
+  <div class="affiliations-container">
+    <p class="affiliations-label">Trusted & Affiliated With</p>
+    <div class="affiliations-grid">
+      {affiliations.map((aff) => (
+        <div class="affiliation-item">
+          <img src={aff.src} alt={aff.alt} loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .affiliations {
+    padding-block: var(--spacing-block);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 100%
+    );
+  }
+
+  .affiliations-container {
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  .affiliations-label {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-inverted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .affiliations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+    justify-items: center;
+  }
+
+  @media (min-width: 640px) {
+    .affiliations-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .affiliations-grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  .affiliation-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    height: 80px;
+    background: oklch(100% 0 0 / 0.1);
+    border-radius: var(--radius-lg);
+    border: 1px solid oklch(100% 0 0 / 0.2);
+    backdrop-filter: blur(8px);
+    transition: all var(--transition-fast);
+
+    &:hover {
+      background: oklch(100% 0 0 / 0.2);
+      border-color: oklch(100% 0 0 / 0.3);
+    }
+  }
+
+  .affiliation-item img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: all var(--transition-fast);
+  }
+
+  .affiliation-item:hover img {
+    opacity: 1;
+  }
+</style>

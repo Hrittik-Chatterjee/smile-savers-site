@@ -28,13 +28,10 @@ const fullTitle =
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Theme detection - must be first to prevent flash -->
+    <!-- Theme - default to light mode -->
     <script is:inline>
       (function() {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = stored || (prefersDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-theme', 'light');
       })();
     </script>
     <meta charset="utf-8" />

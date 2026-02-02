@@ -55,9 +55,10 @@ export const footerNavigation = {
     { label: 'For Families', href: '/for/families' },
   ],
   legal: [
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Sitemap', href: '/sitemap' },
     { label: 'Accessibility', href: '/accessibility' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms & Conditions', href: '/terms' },
   ],
 };
 

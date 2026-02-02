@@ -50,7 +50,7 @@ const iconPaths: Record<string, string> = {
       </p>
     </header>
 
-    <div class="services-grid">
+    <div class="services-grid grid-content">
       {services.map((service) => (
         <article class="service-card">
           <div class="service-icon">
@@ -111,31 +111,7 @@ const iconPaths: Record<string, string> = {
   }
 
   .services-grid {
-    display: grid;
-    /* Mobile: 2 columns, Tablet: 3 columns, Desktop: 4 columns */
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
     width: 100%;
-  }
-
-  @media (min-width: 640px) {
-    .services-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .services-grid {
-      gap: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .services-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 2rem;
-    }
   }
 
   .service-card {
@@ -148,13 +124,12 @@ const iconPaths: Record<string, string> = {
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--color-border);
-    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+    transition: box-shadow var(--transition-fast);
     min-width: 0; /* Prevent grid blowout */
     overflow: hidden;
 
     &:hover {
       box-shadow: var(--shadow-lg);
-      transform: translateY(-4px);
     }
   }
 

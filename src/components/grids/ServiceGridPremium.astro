@@ -67,7 +67,7 @@ const gradients = ["blue", "gold", "teal", "purple"] as const;
     </header>
 
     <!-- Service Cards Grid -->
-    <div class="services-grid" role="list" aria-label="Available dental services">
+    <div class="services-grid grid-content" role="list" aria-label="Available dental services">
       {
         services.map((service: ServiceItem, index: number) => (
           <div role="listitem">
@@ -195,35 +195,7 @@ const gradients = ["blue", "gold", "teal", "purple"] as const;
     margin: 0;
   }
 
-  /* Services Grid */
-  .services-grid {
-    display: grid;
-    /* Mobile: 2 columns */
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 640px) {
-    .services-grid {
-      /* Tablet: 3 columns */
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .services-grid {
-      gap: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .services-grid {
-      /* Desktop: 4 columns */
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-  }
+  /* Services Grid - layout handled by .grid-content utility class */
 
   /* CTA Container */
   .cta-container {

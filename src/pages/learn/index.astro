@@ -34,7 +34,7 @@ const breadcrumbs = [
       </p>
     </header>
 
-    <section class="glossary-grid" aria-label="Dental terms">
+    <section class="glossary-grid grid-auto" style="--grid-min: var(--grid-min-lg);" aria-label="Dental terms">
       {glossaryEntries.map((entry) => (
         <a href={`/learn/${entry.data.term}/`} class="glossary-card">
           <h2 class="term-title">{entry.data.termDisplay}</h2>
@@ -91,22 +91,7 @@ const breadcrumbs = [
     line-height: var(--line-height-relaxed);
   }
 
-  .glossary-grid {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .glossary-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .glossary-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+  /* Grid layout handled by .grid-auto utility class */
 
   .glossary-card {
     display: flex;

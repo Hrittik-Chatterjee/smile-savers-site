@@ -162,6 +162,33 @@
   --z-modal: 400;
   --z-popover: 500;
   --z-tooltip: 600;
+
+  /* ----------------------------------------
+     BREAKPOINTS (documentation reference)
+     CSS cannot use custom properties in media queries,
+     but these document the system for consistency
+     ---------------------------------------- */
+  --breakpoint-sm: 40rem;   /* 640px */
+  --breakpoint-md: 48rem;   /* 768px */
+  --breakpoint-lg: 64rem;   /* 1024px */
+  --breakpoint-xl: 80rem;   /* 1280px */
+
+  /* ----------------------------------------
+     GRID SYSTEM TOKENS
+     ---------------------------------------- */
+
+  /* Grid gap tokens - mobile-first, standardized */
+  --grid-gap-xs: 0.5rem;    /* 8px - extra tight */
+  --grid-gap-sm: 0.75rem;   /* 12px - mobile default */
+  --grid-gap-md: 1rem;      /* 16px - tablet */
+  --grid-gap-lg: 1.5rem;    /* 24px - tablet/desktop transition */
+  --grid-gap-xl: 2rem;      /* 32px - desktop */
+
+  /* Grid minimum widths for auto-fit grids */
+  --grid-min-xs: 8rem;      /* 128px - icons/badges */
+  --grid-min-sm: 12rem;     /* 192px - small cards */
+  --grid-min-md: 16rem;     /* 256px - medium cards */
+  --grid-min-lg: 20rem;     /* 320px - large cards */
 }
 
 /* ============================================
@@ -499,5 +526,94 @@
   .text-pretty {
     /* stylelint-disable-next-line property-no-unknown */
     text-wrap: pretty;
+  }
+
+  /* ============================================
+     GRID UTILITIES
+     Responsive grid system utilities
+     ============================================ */
+
+  /**
+   * .grid-content - Standard content grid (2→3→4 pattern)
+   * Mobile: 2 columns | Tablet (640px): 3 columns | Desktop (1024px): 4 columns
+   * Gap scales: 0.75rem → 1rem → 1.5rem → 2rem
+   */
+  .grid-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--grid-gap-sm);
+  }
+
+  @media (min-width: 640px) {
+    .grid-content {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--grid-gap-md);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grid-content {
+      gap: var(--grid-gap-lg);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-content {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--grid-gap-xl);
+    }
+  }
+
+  /**
+   * .grid-auto - Auto-fit grid with CSS variable customization
+   * Uses --grid-min custom property (default: 16rem)
+   * Best for: adaptive grids that fill space automatically
+   */
+  .grid-auto {
+    --grid-min: var(--grid-min-md);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+    gap: var(--grid-gap-md);
+  }
+
+  @media (min-width: 768px) {
+    .grid-auto {
+      gap: var(--grid-gap-lg);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-auto {
+      gap: var(--grid-gap-xl);
+    }
+  }
+
+  /**
+   * .grid-3 - Fixed 3-column grid (2→3→3 pattern)
+   * Mobile: 2 columns | Tablet+ (640px): 3 columns
+   */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--grid-gap-sm);
+  }
+
+  @media (min-width: 640px) {
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--grid-gap-md);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grid-3 {
+      gap: var(--grid-gap-lg);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-3 {
+      gap: var(--grid-gap-xl);
+    }
   }
 }

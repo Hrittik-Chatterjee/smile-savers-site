@@ -36,37 +36,12 @@ if (limit) {
 }
 ---
 
-<div class="service-grid">
+<div class="service-grid grid-content">
   {services.map((service) => (
     <ServiceCard service={service} />
   ))}
 </div>
 
 <style>
-  .service-grid {
-    display: grid;
-    /* Mobile: 2 columns, Tablet: 3 columns, Desktop: 4 columns */
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 640px) {
-    .service-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .service-grid {
-      gap: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .service-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-  }
+  /* Grid layout handled by .grid-content utility class */
 </style>

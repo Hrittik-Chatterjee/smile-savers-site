@@ -40,7 +40,7 @@ const iconPaths: Record<string, string> = {
       </p>
     </header>
 
-    <section class="personas-grid" aria-label="Patient types">
+    <section class="personas-grid grid-auto" style="--grid-min: var(--grid-min-lg);" aria-label="Patient types">
       {personas.map((persona) => (
         <a href={`/for/${persona.data.slug}/`} class="persona-card">
           <div class="persona-icon">
@@ -102,22 +102,7 @@ const iconPaths: Record<string, string> = {
     line-height: var(--line-height-relaxed);
   }
 
-  .personas-grid {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .personas-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .personas-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+  /* Grid layout handled by .grid-auto utility class */
 
   .persona-card {
     display: flex;

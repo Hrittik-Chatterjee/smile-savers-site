@@ -1,0 +1,195 @@
+---
+/**
+ * HomeFAQ - FAQ section for homepage with Schema.org markup
+ * Addresses common patient questions and improves SEO
+ */
+
+const faqItems = [
+  {
+    question: "How often should I visit the dentist?",
+    answer: "We recommend visiting every 6 months for routine checkups and cleanings. However, some patients may need more frequent visits based on their oral health needs."
+  },
+  {
+    question: "Do you accept my dental insurance?",
+    answer: "We accept most major dental insurance plans. Contact our office at (718) 956-8400 or visit our Financial Information page to verify your coverage."
+  },
+  {
+    question: "What should I expect during my first visit?",
+    answer: "Your first visit includes a comprehensive exam, X-rays, and a professional cleaning. We'll discuss your dental history, address any concerns, and create a personalized treatment plan."
+  },
+  {
+    question: "Are dental X-rays safe?",
+    answer: "Yes, modern digital X-rays use minimal radiation—up to 90% less than traditional film X-rays. We only take X-rays when clinically necessary."
+  },
+  {
+    question: "What can I do about dental anxiety?",
+    answer: "We understand dental anxiety is common. Our team creates a comfortable, judgment-free environment. Let us know about your concerns so we can accommodate your needs."
+  },
+  {
+    question: "Do you offer emergency dental services?",
+    answer: "Yes, we provide emergency dental care for issues like severe toothaches, broken teeth, or dental trauma. Call us immediately at (718) 956-8400."
+  }
+];
+
+// Generate Schema.org FAQPage structured data
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer,
+    },
+  })),
+};
+---
+
+<section class="home-faq section" aria-labelledby="home-faq-heading">
+  <div class="faq-container">
+    <h2 id="home-faq-heading" class="faq-title">Frequently Asked Questions</h2>
+    <p class="faq-subtitle">Have questions? We have answers. Here are some of the most common questions our patients ask.</p>
+
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item" name="home-faq-accordion">
+          <summary class="faq-question">
+            <span class="question-text">{item.question}</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+<style>
+  .home-faq {
+    background: var(--color-surface-sunken);
+  }
+
+  .faq-container {
+    max-width: var(--container-lg);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  .faq-title {
+    font-size: var(--font-size-4xl);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .faq-subtitle {
+    text-align: center;
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: var(--spacing-block);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: var(--container-md);
+    margin-inline: auto;
+  }
+
+  .faq-item {
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+
+    &:hover {
+      border-color: var(--color-border-strong);
+    }
+
+    &[open] {
+      border-color: var(--color-primary);
+    }
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-lg);
+    transition: background-color var(--transition-fast);
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      background: var(--color-surface-sunken);
+    }
+  }
+
+  .question-text {
+    flex: 1;
+  }
+
+  .faq-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    background: var(--color-surface-sunken);
+    color: var(--color-text-muted);
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  details[open] .faq-icon {
+    transform: rotate(180deg);
+    background: var(--color-primary);
+    color: var(--color-text-inverted);
+  }
+
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .faq-answer p {
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-answer {
+      animation: slideDown var(--transition-normal) ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+</style>
