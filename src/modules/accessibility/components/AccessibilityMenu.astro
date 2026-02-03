@@ -147,10 +147,16 @@
     z-index: var(--z-popover);
   }
 
-  /* Hide on mobile/tablet - accessibility button is in MobileBottomBar instead */
+  /* Hide only the trigger button on mobile - accessibility is triggered from MobileBottomBar */
   @media (max-width: 768px) {
-    .a11y-menu {
+    .a11y-trigger {
       display: none;
+    }
+
+    /* Position panel above the bottom bar */
+    .a11y-panel {
+      bottom: 60px;
+      right: 0.75rem;
     }
   }
 
