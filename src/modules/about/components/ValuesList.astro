@@ -48,7 +48,7 @@ const iconPaths: Record<string, string> = {
       </p>
     </header>
 
-    <div class="values-grid">
+    <div class="values-grid grid-auto" style="--grid-min: var(--grid-min-md);">
       {values.map((value) => (
         <article class="value-card">
           <div class="value-icon">
@@ -94,9 +94,8 @@ const iconPaths: Record<string, string> = {
   }
 
   .values-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    /* Grid layout handled by .grid-auto utility class */
+    /* --grid-min set inline to var(--grid-min-md) for 256px min card width */
   }
 
   .value-card {
