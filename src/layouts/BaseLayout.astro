@@ -5,6 +5,7 @@
  */
 
 import IconSprite from "@/components/icons/IconSprite.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -77,6 +78,9 @@ const fullTitle =
     <style is:global>
       @import "../styles/global.css";
     </style>
+
+    <!-- View Transitions (SPA-like navigation) -->
+    <ClientRouter fallback="animate" />
 
     <!-- Structured Data for Local Business -->
     <script
