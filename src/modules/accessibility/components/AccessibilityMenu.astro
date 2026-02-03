@@ -147,19 +147,6 @@
     z-index: var(--z-popover);
   }
 
-  /* Hide only the trigger button on mobile - accessibility is triggered from MobileBottomBar */
-  @media (max-width: 768px) {
-    .a11y-trigger {
-      display: none;
-    }
-
-    /* Position panel above the bottom bar */
-    .a11y-panel {
-      bottom: 60px;
-      right: 0.75rem;
-    }
-  }
-
   .a11y-checkbox {
     position: absolute;
     opacity: 0;
@@ -187,6 +174,19 @@
     &:focus-visible {
       outline: 3px solid var(--color-accent);
       outline-offset: 2px;
+    }
+  }
+
+  /* Hide trigger on mobile - accessibility button is in MobileBottomBar */
+  @media (max-width: 768px) {
+    .a11y-trigger {
+      display: none !important;
+    }
+
+    .a11y-panel {
+      position: fixed;
+      bottom: 70px;
+      right: 0.75rem;
     }
   }
 
