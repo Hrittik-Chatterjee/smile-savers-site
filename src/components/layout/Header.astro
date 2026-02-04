@@ -12,7 +12,7 @@ import { ctaButton } from '@/config/navigation';
 import { formatPhoneLink } from '@/lib/utils';
 ---
 
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="header-container">
     <!-- Logo -->
     <a href="/" class="logo" aria-label={`${siteConfig.name} - Home`}>
@@ -125,9 +125,15 @@ import { formatPhoneLink } from '@/lib/utils';
     background-color: oklch(from var(--color-surface-elevated) l c h / 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--color-border);
+    border: 1px solid transparent;
     border-radius: var(--radius-xl);
     margin: 0.75rem;
+    box-shadow: none;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .site-header.scrolled {
+    border-color: var(--color-border);
     box-shadow: var(--shadow-md);
   }
 
@@ -248,3 +254,21 @@ import { formatPhoneLink } from '@/lib/utils';
   }
 
 </style>
+
+<script>
+  const header = document.getElementById('site-header');
+
+  function updateHeaderState() {
+    if (window.scrollY > 10) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }
+
+  // Check on load
+  updateHeaderState();
+
+  // Check on scroll
+  window.addEventListener('scroll', updateHeaderState, { passive: true });
+</script>

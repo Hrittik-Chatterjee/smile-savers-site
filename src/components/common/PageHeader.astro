@@ -1,0 +1,115 @@
+---
+/**
+ * PageHeader - Shared page header component with breadcrumb
+ * Used across about, contact, appointments, services pages
+ */
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  /** Page title */
+  title: string;
+  /** Page description/subtitle */
+  description: string;
+  /** Breadcrumb items - last item is current page */
+  breadcrumbs: BreadcrumbItem[];
+}
+
+const { title, description, breadcrumbs } = Astro.props;
+---
+
+<section class="page-header">
+  <div class="header-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        {breadcrumbs.map((item, index) => (
+          <li aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>
+            {item.href ? (
+              <a href={item.href}>{item.label}</a>
+            ) : (
+              item.label
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+    <h1 class="page-title">{title}</h1>
+    <p class="page-description">{description}</p>
+  </div>
+</section>
+
+<style>
+  .page-header {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-light),
+      var(--color-secondary-light)
+    );
+    padding-block: var(--spacing-section);
+  }
+
+  .header-container {
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+    text-align: center;
+  }
+
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .breadcrumb li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:not(:last-child)::after {
+      content: "/";
+      color: var(--color-text-muted);
+    }
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-primary-dark);
+      text-decoration: underline;
+    }
+  }
+
+  .breadcrumb [aria-current="page"] {
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .page-title {
+    font-size: var(--font-size-5xl);
+    margin-bottom: 1rem;
+    color: var(--color-primary-dark);
+  }
+
+  .page-description {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin-inline: auto;
+    line-height: var(--line-height-relaxed);
+  }
+</style>

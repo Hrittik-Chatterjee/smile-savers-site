@@ -5,6 +5,7 @@
  */
 
 import PageLayout from "../layouts/PageLayout.astro";
+import PageHeader from "../components/common/PageHeader.astro";
 import ContactForm from "../modules/contact/components/ContactForm.astro";
 import ContactInfo from "../modules/contact/components/ContactInfo.astro";
 import OfficeHours from "../modules/contact/components/OfficeHours.astro";
@@ -17,22 +18,14 @@ const description =
 
 <PageLayout title={title} description={description}>
   <main id="main-content">
-    <!-- Page Header -->
-    <section class="page-header">
-      <div class="header-container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li aria-current="page">Contact</li>
-          </ol>
-        </nav>
-        <h1 class="page-title">Contact Us</h1>
-        <p class="page-description">
-          Have questions? We're here to help. Reach out and our team will get
-          back to you within 24 hours.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+      title="Contact Us"
+      description="Have questions? We're here to help. Reach out and our team will get back to you within 24 hours."
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Contact" }
+      ]}
+    />
 
     <!-- Contact Bento Grid -->
     <section class="contact-section section">
@@ -61,77 +54,6 @@ const description =
 </PageLayout>
 
 <style>
-  .page-header {
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-light),
-      var(--color-secondary-light)
-    );
-    padding-block: var(--spacing-section);
-  }
-
-  .header-container {
-    max-width: var(--container-xl);
-    margin-inline: auto;
-    padding-inline: var(--spacing-element);
-    text-align: center;
-  }
-
-  .breadcrumb {
-    margin-bottom: 1.5rem;
-  }
-
-  .breadcrumb ol {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: var(--font-size-sm);
-  }
-
-  .breadcrumb li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &:not(:last-child)::after {
-      content: "/";
-      color: var(--color-text-muted);
-    }
-  }
-
-  .breadcrumb a {
-    color: var(--color-text-muted);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--color-primary-dark);
-      text-decoration: underline;
-    }
-  }
-
-  .breadcrumb [aria-current="page"] {
-    color: var(--color-text);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .page-title {
-    font-size: var(--font-size-5xl);
-    margin-bottom: 1rem;
-    color: var(--color-primary-dark);
-  }
-
-  .page-description {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-muted);
-    max-width: 600px;
-    margin-inline: auto;
-    line-height: var(--line-height-relaxed);
-  }
-
   .contact-section {
     background: var(--color-bg-human);
     position: relative;

@@ -1,0 +1,74 @@
+---
+/**
+ * CTASection - Shared call-to-action section component
+ * Used across about, services pages
+ */
+
+import Button from "@/components/ui/Button.astro";
+
+interface CTAButton {
+  label: string;
+  href: string;
+  variant?: "primary" | "outline";
+}
+
+interface Props {
+  /** CTA title */
+  title: string;
+  /** CTA description */
+  description: string;
+  /** CTA buttons */
+  buttons: CTAButton[];
+}
+
+const { title, description, buttons } = Astro.props;
+---
+
+<section class="cta-section">
+  <div class="cta-container">
+    <h2 class="cta-title">{title}</h2>
+    <p class="cta-description">{description}</p>
+    <div class="cta-buttons">
+      {buttons.map((button) => (
+        <Button href={button.href} variant={button.variant || "primary"}>
+          {button.label}
+        </Button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    background: var(--color-primary-dark);
+    color: var(--color-text-inverted);
+    padding-block: var(--spacing-section);
+    text-align: center;
+  }
+
+  .cta-container {
+    max-width: 600px;
+    margin-inline: auto;
+    padding-inline: var(--spacing-element);
+  }
+
+  .cta-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 1rem;
+    color: var(--color-text-inverted);
+  }
+
+  .cta-description {
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+</style>

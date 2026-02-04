@@ -5,6 +5,7 @@
  */
 
 import PageLayout from "../layouts/PageLayout.astro";
+import PageHeader from "../components/common/PageHeader.astro";
 import BookingWizard from "../modules/appointments/components/BookingWizard.astro";
 
 const title = "Book an Appointment";
@@ -14,21 +15,14 @@ const description =
 
 <PageLayout title={title} description={description}>
   <main id="main-content">
-    <!-- Page Header -->
-    <section class="page-header">
-      <div class="header-container">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li aria-current="page">Appointments</li>
-          </ol>
-        </nav>
-        <h1 class="page-title">Book an Appointment</h1>
-        <p class="page-description">
-          Schedule your visit in just a few steps. We'll confirm your appointment within 24 hours.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+      title="Book an Appointment"
+      description="Schedule your visit in just a few steps. We'll confirm your appointment within 24 hours."
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Appointments" }
+      ]}
+    />
 
     <!-- Booking Section -->
     <section class="booking-section section">
@@ -76,73 +70,6 @@ const description =
 </PageLayout>
 
 <style>
-  .page-header {
-    background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light));
-    padding-block: var(--spacing-section);
-  }
-
-  .header-container {
-    max-width: var(--container-xl);
-    margin-inline: auto;
-    padding-inline: var(--spacing-element);
-    text-align: center;
-  }
-
-  .breadcrumb {
-    margin-bottom: 1.5rem;
-  }
-
-  .breadcrumb ol {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: var(--font-size-sm);
-  }
-
-  .breadcrumb li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    &:not(:last-child)::after {
-      content: "/";
-      color: var(--color-text-muted);
-    }
-  }
-
-  .breadcrumb a {
-    color: var(--color-text-muted);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--color-primary-dark);
-      text-decoration: underline;
-    }
-  }
-
-  .breadcrumb [aria-current="page"] {
-    color: var(--color-text);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .page-title {
-    font-size: var(--font-size-5xl);
-    margin-bottom: 1rem;
-    color: var(--color-primary-dark);
-  }
-
-  .page-description {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-muted);
-    max-width: 600px;
-    margin-inline: auto;
-    line-height: var(--line-height-relaxed);
-  }
-
   .booking-section {
     background: var(--color-surface);
   }
