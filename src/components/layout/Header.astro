@@ -255,20 +255,25 @@ import { formatPhoneLink } from '@/lib/utils';
 
 </style>
 
-<script>
-  const header = document.getElementById('site-header');
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('site-header');
 
-  function updateHeaderState() {
-    if (window.scrollY > 10) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
+    function updateHeaderState() {
+      if (window.scrollY > 10) {
+        header?.classList.add('scrolled');
+      } else {
+        header?.classList.remove('scrolled');
+      }
     }
-  }
 
-  // Check on load
-  updateHeaderState();
+    // Check on load
+    updateHeaderState();
 
-  // Check on scroll
-  window.addEventListener('scroll', updateHeaderState, { passive: true });
+    // Check on scroll with passive listener for better mobile performance
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+
+    // Also listen to touchmove for better mobile support
+    window.addEventListener('touchmove', updateHeaderState, { passive: true });
+  });
 </script>
