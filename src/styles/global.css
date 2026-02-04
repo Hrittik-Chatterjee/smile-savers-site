@@ -21,19 +21,25 @@
      Perceptually uniform color space
      ---------------------------------------- */
 
-  /* Brand Colors */
-  --color-primary: oklch(55% 0.18 240);
-  /* Dental blue */
-  --color-primary-light: oklch(70% 0.14 240);
-  --color-primary-dark: oklch(40% 0.20 240);
+  /* Brand Colors - New Palette */
+  --color-primary: oklch(22% 0.05 230);
+  /* Deep Navy #102B3F - H1-H3 headings, primary navigation */
+  --color-primary-light: oklch(35% 0.05 230);
+  --color-primary-dark: oklch(15% 0.05 230);
 
   --color-secondary: oklch(65% 0.15 175);
-  /* Fresh mint/teal */
+  /* Fresh mint/teal - kept for compatibility */
   --color-secondary-light: oklch(80% 0.10 175);
   --color-secondary-dark: oklch(50% 0.18 175);
 
-  --color-accent: oklch(75% 0.12 85);
-  /* Warm gold */
+  --color-accent: oklch(65% 0.15 225);
+  /* Bright Cyan #2CABDF - CTAs ONLY (icons, buttons) */
+
+  /* Section Background Colors */
+  --color-bg-clinical: oklch(96% 0.02 145);
+  /* Mint Whisper #EFF6EE - Services, Technology sections */
+  --color-bg-human: oklch(93% 0.04 85);
+  /* Warm Sand #F4EBD9 - Hero, Testimonials, Team, Contact */
 
   /* Semantic Colors */
   --color-success: oklch(72% 0.19 145);
@@ -51,16 +57,19 @@
   --color-neutral-600: oklch(40% 0.015 240);
   --color-neutral-700: oklch(30% 0.012 240);
   --color-neutral-800: oklch(22% 0.010 240);
-  --color-neutral-900: oklch(15% 0.008 240);
+  --color-neutral-900: oklch(16% 0.01 20);
+  /* Charcoal #231F20 - Body copy */
   --color-neutral-950: oklch(10% 0.005 240);
 
   /* Surface Colors */
-  --color-surface: var(--color-neutral-50);
+  --color-surface: oklch(96% 0.02 145);
+  /* Mint Whisper #EFF6EE - Default background */
   --color-surface-elevated: oklch(100% 0 0);
   --color-surface-sunken: var(--color-neutral-100);
 
   /* Text Colors */
-  --color-text: var(--color-neutral-900);
+  --color-text: oklch(16% 0.01 20);
+  /* Charcoal #231F20 - Body copy */
   --color-text-muted: oklch(35% 0.012 240); /* Darker than neutral-600 for better small text contrast */
   --color-text-inverted: var(--color-neutral-50);
 
@@ -191,59 +200,7 @@
   --grid-min-lg: 20rem;     /* 320px - large cards */
 }
 
-/* ============================================
-   DARK MODE OVERRIDES
-   Applied when data-theme="dark" on <html>
-   ============================================ */
-
-[data-theme="dark"] {
-  /* Surface colors - inverted for dark backgrounds */
-  --color-surface: var(--color-neutral-900);
-  --color-surface-elevated: var(--color-neutral-800);
-  --color-surface-sunken: var(--color-neutral-950);
-
-  /* Text colors - light text on dark backgrounds */
-  --color-text: var(--color-neutral-50);
-  --color-text-muted: oklch(70% 0.012 240); /* Lighter than neutral-400 for better dark mode contrast */
-  --color-text-inverted: var(--color-neutral-900);
-
-  /* Border colors - subtle on dark */
-  --color-border: var(--color-neutral-700);
-  --color-border-strong: var(--color-neutral-600);
-
-  /* Adjust brand colors for dark mode visibility */
-  --color-primary-light: oklch(65% 0.16 240);
-  --color-secondary-light: oklch(70% 0.13 175);
-
-  /* Shadows need more opacity on dark backgrounds */
-  --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.2);
-  --shadow-md: 0 4px 6px oklch(0% 0 0 / 0.25), 0 2px 4px oklch(0% 0 0 / 0.15);
-  --shadow-lg: 0 10px 15px oklch(0% 0 0 / 0.3), 0 4px 6px oklch(0% 0 0 / 0.2);
-  --shadow-xl: 0 20px 25px oklch(0% 0 0 / 0.35), 0 8px 10px oklch(0% 0 0 / 0.25);
-}
-
-/* ============================================
-   THEME TOGGLE ICONS
-   Controls sun/moon visibility based on theme
-   ============================================ */
-
-/* Light mode (default): show moon, hide sun */
-.theme-toggle .sun-icon {
-  display: none !important;
-}
-
-.theme-toggle .moon-icon {
-  display: block !important;
-}
-
-/* Dark mode: show sun, hide moon */
-[data-theme="dark"] .theme-toggle .sun-icon {
-  display: block !important;
-}
-
-[data-theme="dark"] .theme-toggle .moon-icon {
-  display: none !important;
-}
+/* Dark mode removed - Single light theme using brand palette */
 
 /* ============================================
    BASE LAYER
@@ -439,11 +396,12 @@
   }
 
   .btn-primary {
-    background: var(--color-primary);
-    color: var(--color-text-inverted);
+    background: var(--color-accent);
+    color: white;
 
     &:hover:not(:disabled) {
-      background: var(--color-primary-dark);
+      background: oklch(55% 0.15 225);
+      /* Darker cyan on hover */
     }
   }
 
@@ -458,12 +416,12 @@
 
   .btn-outline {
     background: transparent;
-    border: 2px solid var(--color-primary);
-    color: var(--color-primary);
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
 
     &:hover:not(:disabled) {
-      background: var(--color-primary);
-      color: var(--color-text-inverted);
+      background: var(--color-accent);
+      color: white;
     }
   }
 
@@ -682,26 +640,11 @@
     }
   }
 
-  /* Dark mode skeleton colors */
-  [data-theme="dark"] .skeleton {
-    background: linear-gradient(
-      90deg,
-      var(--color-neutral-700) 25%,
-      var(--color-neutral-800) 50%,
-      var(--color-neutral-700) 75%
-    );
-    background-size: 200% 100%;
-  }
-
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .skeleton {
       animation: none;
       background: var(--color-neutral-200);
-    }
-
-    [data-theme="dark"] .skeleton {
-      background: var(--color-neutral-700);
     }
   }
 }

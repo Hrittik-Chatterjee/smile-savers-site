@@ -125,24 +125,24 @@ import { formatPhoneLink } from '@/lib/utils';
     .mobile-call-btn {
       flex: 1;
       background: var(--color-surface-elevated);
-      color: var(--color-primary);
-      border: 2px solid var(--color-primary);
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
 
       &:hover {
-        background: oklch(from var(--color-primary) l c h / 0.1);
+        background: oklch(from var(--color-accent) l c h / 0.1);
       }
     }
 
     /* Book Online Button - Filled style */
     .mobile-book-btn {
       flex: 1;
-      background: var(--color-primary);
-      color: var(--color-text-inverted);
-      border: 2px solid var(--color-primary);
+      background: var(--color-accent);
+      color: white;
+      border: 2px solid var(--color-accent);
 
       &:hover {
-        background: var(--color-primary-dark);
-        border-color: var(--color-primary-dark);
+        background: oklch(55% 0.15 225);
+        border-color: oklch(55% 0.15 225);
       }
     }
 

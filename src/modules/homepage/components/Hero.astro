@@ -140,7 +140,7 @@ import { siteConfig } from "@/config/site";
         align-items: center;
         padding: 1rem 0 4rem;
         overflow: hidden;
-        background: var(--color-surface);
+        background: var(--color-bg-human);
     }
 
     /* Background Effects */
@@ -260,12 +260,6 @@ import { siteConfig } from "@/config/site";
     .bento-card:hover {
         box-shadow: var(--shadow-md);
         border-color: oklch(from var(--color-primary) l c h / 0.4);
-    }
-
-    /* Dark mode: reduce opacity for better glassmorphism effect */
-    :global([data-theme="dark"]) .bento-card {
-        background: oklch(from var(--color-surface-elevated) l c h / 0.6);
-        border-color: oklch(from var(--color-border) l c h / 0.4);
     }
 
     @media (min-width: 640px) {
