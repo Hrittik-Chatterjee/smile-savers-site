@@ -38,7 +38,7 @@ const { title, description, canonicalUrl, ogImage } = Astro.props;
   /* Add padding to footer on mobile to account for bottom bar */
   @media (max-width: 768px) {
     :global(footer) {
-      padding-bottom: 5rem;
+      padding-bottom: 6rem; /* 96px to account for MobileBottomBar (~70px) + safe margin */
     }
   }
 </style>

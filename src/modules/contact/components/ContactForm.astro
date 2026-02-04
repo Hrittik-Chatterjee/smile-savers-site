@@ -1,7 +1,7 @@
 ---
 /**
  * ContactForm - Contact form with HTML5 validation
- * Uses Astro form handling
+ * Uses Astro form handling with loading states and ARIA descriptions
  */
 
 import { getCollection } from "astro:content";
@@ -13,10 +13,14 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
 <div class="contact-form-wrapper">
   <h3 class="form-title">Send Us a Message</h3>
 
-  <form class="contact-form" method="POST" action="/api/contact">
+  <!-- Status messages for screen readers -->
+  <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+
+  <form class="contact-form" method="POST" action="/api/contact" id="contact-form">
     <div class="form-group">
       <label for="name" class="form-label">
-        Full Name <span class="required">*</span>
+        Full Name <span class="required" aria-hidden="true">*</span>
+        <span class="sr-only">(required)</span>
       </label>
       <input
         type="text"
@@ -26,13 +30,16 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
         autocomplete="name"
         placeholder="John Doe"
         class="form-input"
+        aria-describedby="name-error"
       />
+      <span id="name-error" class="form-error" role="alert"></span>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label for="email" class="form-label">
-          Email <span class="required">*</span>
+          Email <span class="required" aria-hidden="true">*</span>
+          <span class="sr-only">(required)</span>
         </label>
         <input
           type="email"
@@ -42,7 +49,9 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
           autocomplete="email"
           placeholder="john@example.com"
           class="form-input"
+          aria-describedby="email-error"
         />
+        <span id="email-error" class="form-error" role="alert"></span>
       </div>
 
       <div class="form-group">
@@ -54,7 +63,9 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
           autocomplete="tel"
           placeholder="(718) 555-0123"
           class="form-input"
+          aria-describedby="phone-error"
         />
+        <span id="phone-error" class="form-error" role="alert"></span>
       </div>
     </div>
 
@@ -71,7 +82,8 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
 
     <div class="form-group">
       <label for="message" class="form-label">
-        Message <span class="required">*</span>
+        Message <span class="required" aria-hidden="true">*</span>
+        <span class="sr-only">(required)</span>
       </label>
       <textarea
         id="message"
@@ -80,12 +92,21 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
         rows="5"
         placeholder="How can we help you?"
         class="form-textarea"
+        aria-describedby="message-error"
       ></textarea>
+      <span id="message-error" class="form-error" role="alert"></span>
     </div>
 
-    <button type="submit" class="form-submit">
-      Send Message
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <button type="submit" class="form-submit" id="submit-btn">
+      <span class="btn-text">Send Message</span>
+      <span class="btn-loading" aria-hidden="true">
+        <svg class="spinner" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="spinner-track" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/>
+          <path class="spinner-head" d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        Sending...
+      </span>
+      <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <line x1="22" y1="2" x2="11" y2="13"/>
         <polygon points="22 2 15 22 11 13 2 9 22 2"/>
       </svg>
@@ -97,6 +118,92 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     </p>
   </form>
 </div>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const formStatus = document.getElementById('form-status') as HTMLDivElement;
+
+  // Real-time validation for required fields
+  const requiredInputs = form.querySelectorAll('[required]');
+  requiredInputs.forEach(input => {
+    input.addEventListener('blur', () => validateField(input as HTMLInputElement));
+    input.addEventListener('input', () => clearError(input as HTMLInputElement));
+  });
+
+  function validateField(input: HTMLInputElement | HTMLTextAreaElement) {
+    const errorEl = document.getElementById(`${input.id}-error`);
+    if (!errorEl) return;
+
+    if (!input.validity.valid) {
+      let message = '';
+      if (input.validity.valueMissing) {
+        message = `${input.labels?.[0]?.textContent?.replace('*', '').trim() || 'This field'} is required`;
+      } else if (input.validity.typeMismatch) {
+        message = `Please enter a valid ${input.type}`;
+      }
+      errorEl.textContent = message;
+      input.setAttribute('aria-invalid', 'true');
+    } else {
+      clearError(input);
+    }
+  }
+
+  function clearError(input: HTMLInputElement | HTMLTextAreaElement) {
+    const errorEl = document.getElementById(`${input.id}-error`);
+    if (errorEl) {
+      errorEl.textContent = '';
+      input.removeAttribute('aria-invalid');
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validate all required fields first
+    let isValid = true;
+    requiredInputs.forEach(input => {
+      validateField(input as HTMLInputElement);
+      if (!(input as HTMLInputElement).validity.valid) {
+        isValid = false;
+      }
+    });
+
+    if (!isValid) {
+      formStatus.textContent = 'Please fix the errors in the form';
+      formStatus.className = 'form-status error';
+      return;
+    }
+
+    // Set loading state
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    formStatus.textContent = 'Sending your message...';
+    formStatus.className = 'form-status';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        formStatus.textContent = 'Message sent successfully! We\'ll be in touch soon.';
+        formStatus.className = 'form-status success';
+        form.reset();
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      formStatus.textContent = 'Sorry, there was an error sending your message. Please try again or call us directly.';
+      formStatus.className = 'form-status error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+    }
+  });
+</script>
 
 <style>
   .contact-form-wrapper {
@@ -214,5 +321,126 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     color: var(--color-text-muted);
     text-align: center;
     margin-top: 0.5rem;
+  }
+
+  /* Screen reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Form status messages */
+  .form-status {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 1rem;
+    display: none;
+
+    &:not(:empty) {
+      display: block;
+    }
+
+    &.success {
+      background: oklch(from var(--color-success) l c h / 0.1);
+      color: var(--color-success);
+      border: 1px solid oklch(from var(--color-success) l c h / 0.2);
+    }
+
+    &.error {
+      background: oklch(from var(--color-error) l c h / 0.1);
+      color: var(--color-error);
+      border: 1px solid oklch(from var(--color-error) l c h / 0.2);
+    }
+  }
+
+  /* Inline form errors */
+  .form-error {
+    font-size: var(--font-size-xs);
+    color: var(--color-error);
+    min-height: 1.25rem;
+    display: block;
+  }
+
+  /* Invalid input styling */
+  .form-input[aria-invalid="true"],
+  .form-textarea[aria-invalid="true"] {
+    border-color: var(--color-error);
+
+    &:focus {
+      box-shadow: 0 0 0 3px oklch(from var(--color-error) l c h / 0.15);
+    }
+  }
+
+  /* Button loading state */
+  .form-submit {
+    position: relative;
+
+    .btn-loading {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    &.loading {
+      cursor: wait;
+      opacity: 0.8;
+
+      .btn-text,
+      .btn-icon {
+        display: none;
+      }
+
+      .btn-loading {
+        display: inline-flex;
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  /* Spinner animation */
+  .spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+
+  .spinner-track {
+    opacity: 0.25;
+  }
+
+  .spinner-head {
+    opacity: 1;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .spinner {
+      animation: none;
+    }
+
+    .btn-loading .spinner {
+      display: none;
+    }
   }
 </style>
