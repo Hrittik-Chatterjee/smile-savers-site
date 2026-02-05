@@ -199,14 +199,12 @@ const currentPath = Astro.url.pathname;
       overflow-y: auto;
       overscroll-behavior: contain;
       z-index: 9999;
-      border-bottom-left-radius: var(--radius-xl);
-      border-bottom-right-radius: var(--radius-xl);
+      border-radius: var(--radius-xl);
     }
 
     @media (max-width: 480px) {
       .mobile-nav-links {
-        border-bottom-left-radius: var(--radius-lg);
-        border-bottom-right-radius: var(--radius-lg);
+        border-radius: var(--radius-lg);
       }
     }
 
