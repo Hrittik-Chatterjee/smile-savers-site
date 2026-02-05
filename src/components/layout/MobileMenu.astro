@@ -179,7 +179,7 @@ const currentPath = Astro.url.pathname;
     .mobile-nav-links {
       display: flex;
       position: fixed;
-      top: var(--header-height, 70px);
+      top: calc(var(--header-height, 70px) + 0.5rem);
       left: 0;
       right: 0;
       background-color: var(--color-surface-elevated);
@@ -199,6 +199,15 @@ const currentPath = Astro.url.pathname;
       overflow-y: auto;
       overscroll-behavior: contain;
       z-index: 9999;
+      border-bottom-left-radius: var(--radius-xl);
+      border-bottom-right-radius: var(--radius-xl);
+    }
+
+    @media (max-width: 480px) {
+      .mobile-nav-links {
+        border-bottom-left-radius: var(--radius-lg);
+        border-bottom-right-radius: var(--radius-lg);
+      }
     }
 
     .mobile-nav-links.open {
