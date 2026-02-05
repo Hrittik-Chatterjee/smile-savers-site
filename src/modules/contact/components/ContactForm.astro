@@ -268,7 +268,7 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     &:focus {
       outline: none;
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px oklch(55% 0.18 240 / 0.15);
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
     }
 
     &:invalid:not(:placeholder-shown) {
@@ -307,7 +307,7 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     transition: background-color var(--transition-fast);
 
     &:hover {
-      background: oklch(55% 0.15 225);
+      background: #1A95C9;
     }
 
     &:focus-visible {
@@ -350,15 +350,15 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     }
 
     &.success {
-      background: oklch(from var(--color-success) l c h / 0.1);
+      background: rgba(76, 175, 80, 0.1);
       color: var(--color-success);
-      border: 1px solid oklch(from var(--color-success) l c h / 0.2);
+      border: 1px solid rgba(76, 175, 80, 0.2);
     }
 
     &.error {
-      background: oklch(from var(--color-error) l c h / 0.1);
+      background: rgba(229, 57, 53, 0.1);
       color: var(--color-error);
-      border: 1px solid oklch(from var(--color-error) l c h / 0.2);
+      border: 1px solid rgba(229, 57, 53, 0.2);
     }
   }
 
@@ -376,7 +376,7 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     border-color: var(--color-error);
 
     &:focus {
-      box-shadow: 0 0 0 3px oklch(from var(--color-error) l c h / 0.15);
+      box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.15);
     }
   }
 

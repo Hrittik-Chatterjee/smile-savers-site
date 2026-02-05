@@ -17,60 +17,60 @@
 /* stylelint-disable at-rule-no-unknown */
 @theme {
   /* ----------------------------------------
-     COLOR SYSTEM (OKLCH)
-     Perceptually uniform color space
+     COLOR SYSTEM (Hex)
+     Industry-standard hex colors for cross-browser consistency
      ---------------------------------------- */
 
-  /* Brand Colors - New Palette */
-  --color-primary: oklch(22% 0.05 230);
-  /* Deep Navy #102B3F - H1-H3 headings, primary navigation */
-  --color-primary-light: oklch(35% 0.05 230);
-  --color-primary-dark: oklch(15% 0.05 230);
+  /* Brand Colors */
+  --color-primary: #102B3F;
+  /* Deep Navy - H1-H3 headings, primary navigation */
+  --color-primary-light: #1E4A5F;
+  --color-primary-dark: #0A1D2B;
 
-  --color-secondary: oklch(65% 0.15 175);
-  /* Fresh mint/teal - kept for compatibility */
-  --color-secondary-light: oklch(80% 0.10 175);
-  --color-secondary-dark: oklch(50% 0.18 175);
+  --color-secondary: #3DBAA7;
+  /* Fresh mint/teal */
+  --color-secondary-light: #A8E0D6;
+  --color-secondary-dark: #1A8A78;
 
-  --color-accent: oklch(65% 0.15 225);
-  /* Bright Cyan #2CABDF - CTAs ONLY (icons, buttons) */
+  --color-accent: #2CABDF;
+  /* Bright Cyan - CTAs ONLY (icons, buttons) */
 
   /* Section Background Colors */
-  --color-bg-clinical: oklch(96% 0.02 145);
-  /* Mint Whisper #EFF6EE - Services, Technology sections */
-  --color-bg-human: oklch(93% 0.04 85);
-  /* Warm Sand #F4EBD9 - Hero, Testimonials, Team, Contact */
+  --color-bg-clinical: #EFF6EE;
+  /* Mint Whisper - Services, Technology sections */
+  --color-bg-human: #F4EBD9;
+  /* Warm Sand - Hero, Testimonials, Team, Contact */
 
   /* Semantic Colors */
-  --color-success: oklch(72% 0.19 145);
-  --color-warning: oklch(85% 0.18 85);
-  --color-error: oklch(62% 0.25 25);
-  --color-info: oklch(65% 0.15 240);
+  --color-success: #4CAF50;
+  --color-warning: #FFC107;
+  --color-error: #E53935;
+  --color-info: #2196F3;
 
   /* Neutral Palette */
-  --color-neutral-50: oklch(98% 0.005 240);
-  --color-neutral-100: oklch(95% 0.008 240);
-  --color-neutral-200: oklch(90% 0.010 240);
-  --color-neutral-300: oklch(82% 0.012 240);
-  --color-neutral-400: oklch(65% 0.015 240);
-  --color-neutral-500: oklch(50% 0.015 240);
-  --color-neutral-600: oklch(40% 0.015 240);
-  --color-neutral-700: oklch(30% 0.012 240);
-  --color-neutral-800: oklch(22% 0.010 240);
-  --color-neutral-900: oklch(16% 0.01 20);
-  /* Charcoal #231F20 - Body copy */
-  --color-neutral-950: oklch(10% 0.005 240);
+  --color-neutral-50: #FAFAFA;
+  --color-neutral-100: #F5F5F5;
+  --color-neutral-200: #E5E7EB;
+  --color-neutral-300: #D1D5DB;
+  --color-neutral-400: #9CA3AF;
+  --color-neutral-500: #6B7280;
+  --color-neutral-600: #4B5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1F2937;
+  --color-neutral-900: #231F20;
+  /* Charcoal - Body copy */
+  --color-neutral-950: #111827;
 
   /* Surface Colors */
-  --color-surface: oklch(96% 0.02 145);
-  /* Mint Whisper #EFF6EE - Default background */
-  --color-surface-elevated: oklch(100% 0 0);
+  --color-surface: #EFF6EE;
+  /* Mint Whisper - Default background */
+  --color-surface-elevated: #FFFFFF;
   --color-surface-sunken: var(--color-neutral-100);
 
   /* Text Colors */
-  --color-text: oklch(16% 0.01 20);
-  /* Charcoal #231F20 - Body copy */
-  --color-text-muted: oklch(35% 0.012 240); /* Darker than neutral-600 for better small text contrast */
+  --color-text: #231F20;
+  /* Charcoal - Body copy */
+  --color-text-muted: #5A6578; /* Darker gray for better cross-browser readability */
   --color-text-inverted: var(--color-neutral-50);
 
   /* Border Colors */
@@ -143,13 +143,13 @@
   --radius-full: 9999px;
 
   /* ----------------------------------------
-     SHADOWS (using OKLCH alpha)
+     SHADOWS (using rgba for browser consistency)
      ---------------------------------------- */
 
-  --shadow-sm: 0 1px 2px oklch(20% 0.02 240 / 0.05);
-  --shadow-md: 0 4px 6px oklch(20% 0.02 240 / 0.08), 0 2px 4px oklch(20% 0.02 240 / 0.04);
-  --shadow-lg: 0 10px 15px oklch(20% 0.02 240 / 0.10), 0 4px 6px oklch(20% 0.02 240 / 0.05);
-  --shadow-xl: 0 20px 25px oklch(20% 0.02 240 / 0.12), 0 8px 10px oklch(20% 0.02 240 / 0.06);
+  --shadow-sm: 0 1px 2px rgba(31, 41, 55, 0.05);
+  --shadow-md: 0 4px 6px rgba(31, 41, 55, 0.08), 0 2px 4px rgba(31, 41, 55, 0.04);
+  --shadow-lg: 0 10px 15px rgba(31, 41, 55, 0.10), 0 4px 6px rgba(31, 41, 55, 0.05);
+  --shadow-xl: 0 20px 25px rgba(31, 41, 55, 0.12), 0 8px 10px rgba(31, 41, 55, 0.06);
 
   /* ----------------------------------------
      TRANSITIONS
@@ -400,7 +400,7 @@
     color: white;
 
     &:hover:not(:disabled) {
-      background: oklch(55% 0.15 225);
+      background: #1A95C9;
       /* Darker cyan on hover */
     }
   }

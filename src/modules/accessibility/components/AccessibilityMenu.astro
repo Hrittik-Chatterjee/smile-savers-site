@@ -113,15 +113,15 @@
 
   /* High Contrast State */
   :root:has(#high-contrast:checked) {
-    --color-text: oklch(5% 0 0);
-    --color-surface: oklch(100% 0 0);
-    --color-surface-elevated: oklch(100% 0 0);
-    --color-border: oklch(20% 0 0);
+    --color-text: #0D0D0D;
+    --color-surface: #FFFFFF;
+    --color-surface-elevated: #FFFFFF;
+    --color-border: #333333;
   }
 
   /* Highlight Links State */
   :root:has(#highlight-links:checked) a:not(.btn):not(.logo):not(.nav-link):not(.mobile-nav-link) {
-    background-color: oklch(90% 0.15 85);
+    background-color: #FFF3CD;
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }

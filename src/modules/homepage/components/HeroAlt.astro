@@ -218,9 +218,9 @@ const primaryColor = "var(--color-primary)";
     inset: 0;
     background: linear-gradient(
       to right,
-      oklch(15% 0.02 240 / 0.92),
-      oklch(15% 0.02 240 / 0.75),
-      oklch(15% 0.02 240 / 0.35)
+      rgba(26, 32, 44, 0.92),
+      rgba(26, 32, 44, 0.75),
+      rgba(26, 32, 44, 0.35)
     );
   }
 
@@ -270,9 +270,9 @@ const primaryColor = "var(--color-primary)";
     gap: 0.5rem;
     padding: 0.375rem 1rem;
     border-radius: 9999px;
-    background: oklch(100% 0 0 / 0.1);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
-    border: 1px solid oklch(100% 0 0 / 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
     font-size: var(--font-size-sm);
     font-weight: 600;
@@ -286,7 +286,7 @@ const primaryColor = "var(--color-primary)";
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background: oklch(72% 0.19 145); /* Green */
+    background: #4CAF50; /* Green */
     animation: pulse-dot 2s ease-in-out infinite;
   }
 
@@ -315,7 +315,7 @@ const primaryColor = "var(--color-primary)";
     line-height: 1.1;
     margin: 0 0 1.5rem;
     max-width: 56rem;
-    text-shadow: 0 4px 24px oklch(0% 0 0 / 0.3);
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   }
 
   .headline-accent {
@@ -338,7 +338,7 @@ const primaryColor = "var(--color-primary)";
   /* Subheadline */
   .hero-subheadline {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    color: oklch(85% 0.01 240);
+    color: #D1D5DB;
     line-height: 1.6;
     margin: 0 0 2.5rem;
     max-width: 38rem;
@@ -390,13 +390,13 @@ const primaryColor = "var(--color-primary)";
     font-weight: 700;
     font-size: var(--font-size-lg);
     text-decoration: none;
-    box-shadow: 0 10px 30px oklch(65% 0.15 225 / 0.4);
+    box-shadow: 0 10px 30px rgba(44, 171, 223, 0.4);
     transition: all 0.3s ease;
   }
 
   .btn-hero-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px oklch(65% 0.15 225 / 0.6);
+    box-shadow: 0 15px 40px rgba(44, 171, 223, 0.6);
   }
 
   .btn-hero-primary svg {
@@ -414,12 +414,12 @@ const primaryColor = "var(--color-primary)";
     gap: 0.5rem;
     padding: 0.875rem 1.5rem;
     border-radius: 9999px;
-    background: oklch(100% 0 0 / 0.1);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     font-weight: 600;
     font-size: var(--font-size-base);
     text-decoration: none;
-    border: 2px solid oklch(100% 0 0 / 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(8px);
     transition: all 0.3s ease;
   }
@@ -450,9 +450,9 @@ const primaryColor = "var(--color-primary)";
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: oklch(100% 0 0 / 0.1);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(12px);
-    border: 1px solid oklch(100% 0 0 / 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
   }
 
@@ -472,13 +472,13 @@ const primaryColor = "var(--color-primary)";
   }
 
   .badge-icon-google {
-    background: oklch(75% 0.15 85); /* Gold */
+    background: #D4A574; /* Gold */
     color: white;
   }
 
   .badge-icon-verified {
-    background: oklch(85% 0.18 85); /* Yellow */
-    color: oklch(20% 0.02 85);
+    background: #FFC107; /* Yellow */
+    color: #2D2A1D;
   }
 
   .badge-text {
@@ -490,7 +490,7 @@ const primaryColor = "var(--color-primary)";
 
   .badge-label {
     font-size: 0.625rem;
-    color: oklch(75% 0.01 240);
+    color: #B8BCC4;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -513,11 +513,11 @@ const primaryColor = "var(--color-primary)";
   .stats-bar {
     max-width: 72rem;
     margin: 0 auto;
-    background: oklch(100% 0 0 / 0.92);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(20px);
     border-radius: var(--radius-2xl);
     padding: 1.5rem;
-    box-shadow: 0 20px 50px oklch(0% 0 0 / 0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -554,7 +554,7 @@ const primaryColor = "var(--color-primary)";
 
   .stat-icon-wrapper {
     padding: 0.75rem;
-    background: oklch(95% 0.02 240);
+    background: #F0F1F3;
     border-radius: 50%;
     color: var(--color-primary);
     flex-shrink: 0;
