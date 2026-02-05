@@ -1,0 +1,38 @@
+---
+import { useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const storyblokApi = useStoryblokApi();
+
+let content = null;
+let error = null;
+
+try {
+  const { data } = await storyblokApi.get('cdn/stories/test', {
+    version: import.meta.env.DEV ? 'draft' : 'published',
+  });
+  content = data.story.content;
+} catch (e) {
+  error = 'No "test" story found in Storyblok. Create one first!';
+}
+---
+
+<BaseLayout title="Storyblok Test" description="Testing Storyblok integration">
+  <div class="container mx-auto px-4 py-20">
+    <h1 class="text-3xl font-bold mb-6">Storyblok Test Page</h1>
+
+    {error ? (
+      <div class="bg-yellow-100 border border-yellow-400 text-yellow-800 p-4 rounded">
+        <p class="font-bold">Not connected yet</p>
+        <p>{error}</p>
+        <p class="mt-2 text-sm">Go to your Storyblok dashboard → Content → Create a story called "test" with Content Type "page"</p>
+      </div>
+    ) : (
+      <div>
+        <p class="text-green-600 font-bold mb-4">Connected to Storyblok!</p>
+        <StoryblokComponent blok={content} />
+      </div>
+    )}
+  </div>
+</BaseLayout>
