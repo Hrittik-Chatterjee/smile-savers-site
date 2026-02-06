@@ -5,62 +5,75 @@
  */
 
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 
 interface Props {
   member: CollectionEntry<"team">;
 }
 
 const { member } = Astro.props;
-const { name, role, credentials, shortBio, specialties, education } = member.data;
+const { name, role, credentials, shortBio, specialties, education, image } = member.data;
 ---
 
 <article class="team-card">
-  <div class="card-image">
-    <div class="image-placeholder" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
-      </svg>
+  <a href={`/team/${member.data.slug}`} class="team-card-link">
+    <div class="card-image">
+      {image ? (
+        <Image 
+          src={image} 
+          alt={name} 
+          width={400} 
+          height={300} 
+          class="h-full w-full object-cover"
+        />
+      ) : (
+        <div class="image-placeholder" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+      )}
     </div>
-  </div>
 
-  <div class="card-content">
-    <h3 class="member-name">{name}</h3>
-    <p class="member-role">{role}</p>
+    <div class="card-content">
+      <h3 class="member-name">{name}</h3>
+      <p class="member-role">{role}</p>
 
-    <div class="credentials">
-      {credentials.map((credential) => (
-        <span class="credential-badge">{credential}</span>
-      ))}
+      <div class="credentials">
+        {credentials.map((credential) => (
+          <span class="credential-badge">{credential}</span>
+        ))}
+      </div>
+
+      <p class="member-bio">{shortBio}</p>
+
+      {specialties && specialties.length > 0 && (
+        <div class="specialties">
+          <h4 class="specialties-title">Specialties</h4>
+          <ul class="specialties-list">
+            {specialties.map((specialty) => (
+              <li>{specialty}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {education && education.length > 0 && (
+        <div class="education">
+          <h4 class="education-title">Education</h4>
+          <ul class="education-list">
+            {education.map((edu) => (
+              <li>
+                <span class="edu-degree">{edu.degree}</span>
+                <span class="edu-institution">{edu.institution}, {edu.year}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
-
-    <p class="member-bio">{shortBio}</p>
-
-    {specialties && specialties.length > 0 && (
-      <div class="specialties">
-        <h4 class="specialties-title">Specialties</h4>
-        <ul class="specialties-list">
-          {specialties.map((specialty) => (
-            <li>{specialty}</li>
-          ))}
-        </ul>
-      </div>
-    )}
-
-    {education && education.length > 0 && (
-      <div class="education">
-        <h4 class="education-title">Education</h4>
-        <ul class="education-list">
-          {education.map((edu) => (
-            <li>
-              <span class="edu-degree">{edu.degree}</span>
-              <span class="edu-institution">{edu.institution}, {edu.year}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-  </div>
+  </a>
 </article>
 
 <style>
@@ -76,6 +89,14 @@ const { name, role, credentials, shortBio, specialties, education } = member.dat
       box-shadow: var(--shadow-lg);
       transform: translateY(-4px);
     }
+  }
+
+  .team-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   @media (min-width: 640px) {

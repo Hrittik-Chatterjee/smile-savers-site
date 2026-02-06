@@ -36,7 +36,7 @@ export const doctors: Doctor[] = [
     image: '/images/doctors/dr-islam.jpg',
   },
   {
-    id: 'dr-dorothy-li',
+    id: 'dr-lee',
     name: 'Dr. Dorothy Li',
     credentials: 'DDS',
     title: 'Associate Dentist',

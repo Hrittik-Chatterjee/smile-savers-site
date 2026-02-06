@@ -150,7 +150,7 @@ const personas = defineCollection({
  */
 const team = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/team' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     name: z.string(),
     slug: z.string(),
     role: z.string(),
@@ -163,6 +163,7 @@ const team = defineCollection({
       year: z.number(),
     })),
     order: z.number().default(0),
+    image: image().optional(),
   }),
 });
 

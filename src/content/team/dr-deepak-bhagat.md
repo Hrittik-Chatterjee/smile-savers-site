@@ -2,6 +2,7 @@
 name: "Dr. Deepak Bhagat"
 slug: "dr-deepak-bhagat"
 role: "Founder & Lead Dentist"
+image: "../../assets/team/dr-deepak-bhagat.jpg"
 credentials:
   - "DDS"
   - "ICOI Diplomate"

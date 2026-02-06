@@ -137,17 +137,22 @@ const currentPath = Astro.url.pathname;
   }
 
   .mobile-toggle:hover {
-    background-color: var(--color-primary-dark);
+    background-color: var(--color-primary);
     transform: scale(1.05);
   }
 
   .mobile-toggle:active {
+    background-color: var(--color-primary);
     transform: scale(0.95);
   }
 
   .mobile-toggle:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 3px;
+  }
+
+  .mobile-toggle.open {
+    background-color: var(--color-primary);
   }
 
   .bar {
