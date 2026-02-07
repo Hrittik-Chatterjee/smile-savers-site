@@ -30,15 +30,37 @@ const { title, description, canonicalUrl, ogImage } = Astro.props;
   </main>
 
   <Footer />
+  
+  <!-- White spacer for mobile bottom bar to blend into -->
+  <div class="mobile-bottom-spacer"></div>
+  
   <MobileBottomBar />
   <AccessibilityMenu />
 </BaseLayout>
 
 <style>
-  /* Add padding to footer on mobile to account for bottom bar */
+  /* White spacer for mobile bottom bar to blend into */
+  .mobile-bottom-spacer {
+    display: none;
+  }
+
   @media (max-width: 768px) {
+    .mobile-bottom-spacer {
+      display: block;
+      height: calc(70px + 0.75rem); /* Bottom bar height + margin */
+      background-color: white;
+      /* This creates the white space at the bottom for the bar to blend into */
+    }
+
     :global(footer) {
-      padding-bottom: 6rem; /* 96px to account for MobileBottomBar (~70px) + safe margin */
+      /* Add padding to account for bottom bar height when scrolling */
+      padding-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mobile-bottom-spacer {
+      height: calc(70px + 0.5rem);
     }
   }
 </style>

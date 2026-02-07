@@ -103,18 +103,19 @@ import { formatPhoneLink } from '@/lib/utils';
       display: flex;
       gap: 0.35rem;
       padding: 0.35rem;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--color-border);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid transparent; /* Start with transparent border (blends at bottom) */
       border-radius: var(--radius-xl);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      box-shadow: none; /* No shadow initially */
       transition: border-color var(--transition-base), box-shadow var(--transition-base);
     }
 
-    .mobile-bottom-bar.at-bottom {
-      border-color: transparent;
-      box-shadow: none;
+    /* When NOT at bottom, show border and shadow (floating effect) */
+    .mobile-bottom-bar.not-at-bottom {
+      border-color: var(--color-border);
+      box-shadow: var(--shadow-md);
     }
 
     @media (max-width: 480px) {
@@ -225,11 +226,12 @@ import { formatPhoneLink } from '@/lib/utils';
       const clientHeight = window.innerHeight;
       const distanceFromBottom = scrollHeight - (scrollTop + clientHeight);
       
-      // If within 10px of bottom, remove border and shadow (blend with background)
-      if (distanceFromBottom <= 10) {
-        bottomBar?.classList.add('at-bottom');
+      // If NOT at bottom (more than 10px away), add border and shadow (floating effect)
+      // If at bottom (within 10px), remove class to blend with background
+      if (distanceFromBottom > 10) {
+        bottomBar?.classList.add('not-at-bottom');
       } else {
-        bottomBar?.classList.remove('at-bottom');
+        bottomBar?.classList.remove('not-at-bottom');
       }
     }
 
