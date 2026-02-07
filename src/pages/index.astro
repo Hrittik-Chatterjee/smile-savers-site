@@ -5,7 +5,6 @@
 
 import PageLayout from "../layouts/PageLayout.astro";
 import Hero from "../modules/homepage/components/Hero.astro";
-import HeroAlt from "../modules/homepage/components/HeroAlt.astro";
 import Affiliations from "../modules/homepage/components/Affiliations.astro";
 import TrustSignals from "../modules/homepage/components/TrustSignals.astro";
 import ServicesPreview from "../modules/homepage/components/ServicesPreview.astro";
@@ -16,8 +15,7 @@ import HomeCTA from "../modules/homepage/components/HomeCTA.astro";
 ---
 
 <PageLayout title="Home">
-  <!-- Testing new HeroAlt design - swap back to <Hero /> if needed -->
-  <HeroAlt />
+  <Hero />
   <Affiliations />
   <!-- <TrustSignals /> -->
   <ServicesPreview />

@@ -287,4 +287,11 @@ const doctors = team.sort((a, b) => a.data.order - b.data.order).slice(0, 3); //
     justify-content: center;
     margin-top: var(--spacing-block);
   }
+
+  /* Mobile edge alignment - match header 0.5rem margin */
+  @media (max-width: 639px) {
+    .doctors-container {
+      padding-inline: 0.5rem;
+    }
+  }
 </style>
