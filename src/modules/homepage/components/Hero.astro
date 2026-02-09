@@ -218,9 +218,9 @@ const primaryColor = "var(--color-primary)";
     inset: 0;
     background: linear-gradient(
       to right,
-      rgba(26, 32, 44, 0.92),
-      rgba(26, 32, 44, 0.75),
-      rgba(26, 32, 44, 0.35)
+      color-mix(in srgb, var(--color-overlay-dark) 92%, transparent),
+      color-mix(in srgb, var(--color-overlay-dark) 75%, transparent),
+      color-mix(in srgb, var(--color-overlay-dark) 35%, transparent)
     );
   }
 
@@ -286,7 +286,7 @@ const primaryColor = "var(--color-primary)";
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background: #4CAF50; /* Green */
+    background: var(--color-success);
     animation: pulse-dot 2s ease-in-out infinite;
   }
 
@@ -338,7 +338,7 @@ const primaryColor = "var(--color-primary)";
   /* Subheadline */
   .hero-subheadline {
     font-size: clamp(1rem, 2vw, 1.25rem);
-    color: #D1D5DB;
+    color: var(--color-neutral-300);
     line-height: 1.6;
     margin: 0 0 2.5rem;
     max-width: 38rem;
@@ -385,17 +385,17 @@ const primaryColor = "var(--color-primary)";
     padding: 1rem 2rem;
     border-radius: var(--radius-xl);
     background: var(--color-accent);
-    color: white;
+    color: var(--color-text-inverted);
     font-weight: 700;
     font-size: var(--font-size-lg);
     text-decoration: none;
-    box-shadow: 0 10px 30px rgba(44, 171, 223, 0.4);
+    box-shadow: 0 10px 30px color-mix(in srgb, var(--color-accent) 40%, transparent);
     transition: all 0.3s ease;
   }
 
   .btn-hero-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(44, 171, 223, 0.6);
+    box-shadow: 0 15px 40px color-mix(in srgb, var(--color-accent) 60%, transparent);
   }
 
   .btn-hero-primary svg {
@@ -471,13 +471,13 @@ const primaryColor = "var(--color-primary)";
   }
 
   .badge-icon-google {
-    background: #D4A574; /* Gold */
-    color: white;
+    background: var(--color-gold);
+    color: var(--color-text-inverted);
   }
 
   .badge-icon-verified {
-    background: #FFC107; /* Yellow */
-    color: #2D2A1D;
+    background: var(--color-warning);
+    color: var(--color-neutral-800);
   }
 
   .badge-text {
@@ -489,7 +489,7 @@ const primaryColor = "var(--color-primary)";
 
   .badge-label {
     font-size: 0.625rem;
-    color: #B8BCC4;
+    color: var(--color-neutral-400);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -553,7 +553,7 @@ const primaryColor = "var(--color-primary)";
 
   .stat-icon-wrapper {
     padding: 0.75rem;
-    background: #F0F1F3;
+    background: var(--color-neutral-100);
     border-radius: 50%;
     color: var(--color-primary);
     flex-shrink: 0;

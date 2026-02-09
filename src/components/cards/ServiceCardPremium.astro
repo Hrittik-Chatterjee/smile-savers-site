@@ -178,19 +178,19 @@ const {
 
   /* Gradient backgrounds for featured variant */
   .variant-featured.gradient-blue {
-    background: linear-gradient(135deg, #F0F4FF, #E0E8FF);
+    background: linear-gradient(135deg, var(--color-gradient-blue-start), var(--color-gradient-blue-end));
   }
 
   .variant-featured.gradient-gold {
-    background: linear-gradient(135deg, #FFF9F0, #FFF3E0);
+    background: linear-gradient(135deg, var(--color-gradient-gold-start), var(--color-gradient-gold-end));
   }
 
   .variant-featured.gradient-teal {
-    background: linear-gradient(135deg, #F0FBF9, #E0F7F4);
+    background: linear-gradient(135deg, var(--color-gradient-teal-start), var(--color-gradient-teal-end));
   }
 
   .variant-featured.gradient-purple {
-    background: linear-gradient(135deg, #F5F0FF, #EDE0FF);
+    background: linear-gradient(135deg, var(--color-gradient-purple-start), var(--color-gradient-purple-end));
   }
 
   /* Decorative Shape */
@@ -200,7 +200,7 @@ const {
     right: 0;
     width: 6rem;
     height: 6rem;
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), transparent);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-gold) 5%, transparent), transparent);
     border-radius: 9999px;
     transform: translateY(-33%) translateX(33%);
     transition: transform 0.5s ease;
@@ -227,19 +227,19 @@ const {
 
   /* Icon wrapper gradient by color */
   .gradient-blue .icon-wrapper {
-    background: linear-gradient(135deg, #F0F4FF, #E0E8FF);
+    background: linear-gradient(135deg, var(--color-gradient-blue-start), var(--color-gradient-blue-end));
   }
 
   .gradient-gold .icon-wrapper {
-    background: linear-gradient(135deg, #FFF9F0, #FFF3E0);
+    background: linear-gradient(135deg, var(--color-gradient-gold-start), var(--color-gradient-gold-end));
   }
 
   .gradient-teal .icon-wrapper {
-    background: linear-gradient(135deg, #F0FBF9, #E0F7F4);
+    background: linear-gradient(135deg, var(--color-gradient-teal-start), var(--color-gradient-teal-end));
   }
 
   .gradient-purple .icon-wrapper {
-    background: linear-gradient(135deg, #F5F0FF, #EDE0FF);
+    background: linear-gradient(135deg, var(--color-gradient-purple-start), var(--color-gradient-purple-end));
   }
 
   .icon {
@@ -262,7 +262,7 @@ const {
   }
 
   .gradient-purple .icon {
-    color: #9C27B0;
+    color: var(--color-purple);
   }
 
   /* Content */
@@ -292,7 +292,7 @@ const {
     left: 50%;
     transform: translateX(-50%);
     height: 2px;
-    background: linear-gradient(90deg, var(--color-accent), #D4A574);
+    background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
     width: 0;
     transition: width 0.3s ease;
   }
@@ -319,8 +319,8 @@ const {
     border-radius: 9999px;
     font-size: 0.625rem;
     font-weight: var(--font-weight-bold);
-    background: linear-gradient(90deg, rgba(212, 165, 116, 0.1), rgba(212, 165, 116, 0.1));
-    border: 1px solid rgba(212, 165, 116, 0.2);
+    background: color-mix(in srgb, var(--color-gold) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 20%, transparent);
     color: var(--color-accent);
   }
 
@@ -351,9 +351,9 @@ const {
     pointer-events: none;
     background: linear-gradient(
       135deg,
-      rgba(33, 150, 243, 0.05),
+      color-mix(in srgb, var(--color-info) 5%, transparent),
       transparent,
-      rgba(212, 165, 116, 0.05)
+      color-mix(in srgb, var(--color-gold) 5%, transparent)
     );
   }
 

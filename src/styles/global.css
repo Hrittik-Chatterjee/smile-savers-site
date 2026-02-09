@@ -79,6 +79,48 @@
   --color-border: var(--color-neutral-200);
   --color-border-strong: var(--color-neutral-300);
 
+  /* Extended Color Palette */
+  --color-accent-dark: #1A95C9;
+  /* Darker cyan for hover states */
+  --color-gold: #D4A574;
+  /* Warm gold accent */
+  --color-gold-light: #FFF9F0;
+  /* Light gold background */
+  --color-purple: #9C27B0;
+  /* Purple accent */
+  --color-purple-light: #F5F0FF;
+  /* Light purple background */
+  --color-brown: #5D4037;
+  /* Brown accent */
+
+  /* Gradient Background Colors */
+  --color-gradient-blue-start: #F0F4FF;
+  --color-gradient-blue-end: #E0E8FF;
+  --color-gradient-gold-start: #FFF9F0;
+  --color-gradient-gold-end: #FFF3E0;
+  --color-gradient-teal-start: #F0FBF9;
+  --color-gradient-teal-end: #E0F7F4;
+  --color-gradient-purple-start: #F5F0FF;
+  --color-gradient-purple-end: #EDE0FF;
+
+  /* Semantic Light Backgrounds (for badges/status) */
+  --color-success-light: #E8F5E9;
+  --color-success-dark: #2E7D32;
+  --color-warning-light: #FFF8E1;
+  --color-warning-dark: #F57C00;
+  --color-info-light: #E3F2FD;
+  --color-info-dark: #1565C0;
+  --color-error-light: #FFEBEE;
+  --color-error-dark: #C62828;
+
+  /* Third-party Brand Colors */
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #1DA851;
+
+  /* Overlay Colors */
+  --color-overlay-dark: #1A202C;
+  /* Dark overlay base (rgba: 26, 32, 44) */
+
   /* ----------------------------------------
      TYPOGRAPHY
      ---------------------------------------- */
@@ -399,11 +441,10 @@
 
   .btn-primary {
     background: var(--color-accent);
-    color: white;
+    color: var(--color-text-inverted);
 
     &:hover:not(:disabled) {
-      background: #1A95C9;
-      /* Darker cyan on hover */
+      background: var(--color-accent-dark);
     }
   }
 
@@ -423,7 +464,7 @@
 
     &:hover:not(:disabled) {
       background: var(--color-accent);
-      color: white;
+      color: var(--color-text-inverted);
     }
   }
 
@@ -681,7 +722,7 @@
 
 /* White curtain background - shows through during transition */
 ::view-transition {
-  background-color: white;
+  background-color: var(--color-surface-elevated);
 }
 
 /* Old page slides up and out - 700ms */

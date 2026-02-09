@@ -158,7 +158,7 @@ const currentPath = Astro.url.pathname;
   .bar {
     width: 18px;
     height: 2px;
-    background: white;
+    background: var(--color-text-inverted);
     border-radius: 2px;
     transition: all 0.3s ease;
   }
@@ -252,7 +252,7 @@ const currentPath = Astro.url.pathname;
 
     .mobile-nav-link.active {
       color: var(--color-primary);
-      background-color: rgba(16, 43, 63, 0.1);
+      background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
     }
 
     /* Details/Summary for submenus */
@@ -302,7 +302,7 @@ const currentPath = Astro.url.pathname;
 
     .mobile-submenu-link.active {
       color: var(--color-primary);
-      background-color: rgba(16, 43, 63, 0.08);
+      background-color: color-mix(in srgb, var(--color-primary) 8%, transparent);
     }
 
     /* ----------------------------------------

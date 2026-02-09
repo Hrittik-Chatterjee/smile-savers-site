@@ -660,7 +660,7 @@ ${data.notes}`;
 
   .service-option input:checked + .option-content {
     border-color: var(--color-primary);
-    background: rgba(16, 43, 63, 0.05);
+    background: color-mix(in srgb, var(--color-primary) 5%, transparent);
   }
 
   .service-option:hover .option-content {
@@ -714,7 +714,7 @@ ${data.notes}`;
 
   .doctor-option input:checked + .doctor-content {
     border-color: var(--color-primary);
-    background: rgba(16, 43, 63, 0.05);
+    background: color-mix(in srgb, var(--color-primary) 5%, transparent);
   }
 
   .doctor-option:hover .doctor-content {
@@ -860,7 +860,7 @@ ${data.notes}`;
     &:focus {
       outline: none;
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(16, 43, 63, 0.15);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
     }
   }
 
@@ -936,10 +936,10 @@ ${data.notes}`;
 
   .btn-primary {
     background: var(--color-accent);
-    color: white;
+    color: var(--color-text-inverted);
 
     &:hover {
-      background: #1A95C9;
+      background: var(--color-accent-dark);
     }
   }
 
@@ -1056,12 +1056,12 @@ ${data.notes}`;
   }
 
   .btn-whatsapp {
-    background: #25D366;
-    color: white;
+    background: var(--color-whatsapp);
+    color: var(--color-text-inverted);
     flex: 1;
 
     &:hover {
-      background: #1da851;
+      background: var(--color-whatsapp-hover);
     }
 
     @media (min-width: 480px) {

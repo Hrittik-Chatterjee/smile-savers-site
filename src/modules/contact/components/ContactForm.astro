@@ -268,7 +268,7 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     &:focus {
       outline: none;
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.15);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-info) 15%, transparent);
     }
 
     &:invalid:not(:placeholder-shown) {
@@ -298,7 +298,7 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     gap: 0.5rem;
     padding: 1rem 2rem;
     background: var(--color-accent);
-    color: white;
+    color: var(--color-text-inverted);
     border: none;
     border-radius: var(--radius-md);
     font-size: var(--font-size-base);
@@ -307,7 +307,7 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     transition: background-color var(--transition-fast);
 
     &:hover {
-      background: #1A95C9;
+      background: var(--color-accent-dark);
     }
 
     &:focus-visible {
@@ -350,15 +350,15 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     }
 
     &.success {
-      background: rgba(76, 175, 80, 0.1);
+      background: color-mix(in srgb, var(--color-success) 10%, transparent);
       color: var(--color-success);
-      border: 1px solid rgba(76, 175, 80, 0.2);
+      border: 1px solid color-mix(in srgb, var(--color-success) 20%, transparent);
     }
 
     &.error {
-      background: rgba(229, 57, 53, 0.1);
+      background: color-mix(in srgb, var(--color-error) 10%, transparent);
       color: var(--color-error);
-      border: 1px solid rgba(229, 57, 53, 0.2);
+      border: 1px solid color-mix(in srgb, var(--color-error) 20%, transparent);
     }
   }
 
@@ -376,7 +376,7 @@ const sortedServices = services.sort((a, b) => a.data.order - b.data.order);
     border-color: var(--color-error);
 
     &:focus {
-      box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.15);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 15%, transparent);
     }
   }
 
