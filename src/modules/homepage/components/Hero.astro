@@ -195,7 +195,7 @@ const primaryColor = "var(--color-primary)";
     min-height: 800px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     overflow: hidden;
   }
@@ -250,16 +250,22 @@ const primaryColor = "var(--color-primary)";
     width: 100%;
     max-width: 80rem;
     margin: 0 auto;
-    padding: 1rem 1rem 16rem;
+    padding: 1rem 1rem 16rem 1.5rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   @media (min-width: 640px) {
     .hero-content {
-      padding: 1rem 1.5rem 14rem;
+      padding: 1rem 1.5rem 14rem 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-content {
+      padding: 1rem 2rem 14rem 4rem;
     }
   }
 
@@ -371,7 +377,7 @@ const primaryColor = "var(--color-primary)";
   @media (min-width: 480px) {
     .hero-cta-group {
       flex-direction: row;
-      justify-content: center;
+      justify-content: flex-start;
       max-width: none;
       gap: 1rem;
     }
